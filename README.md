@@ -24,4 +24,4 @@
 
 #### initial design mock ups- Dolma&Dan
 
-#### Project requirements as user stories - Komi 
+#### Project requirements as user stories- Komi
