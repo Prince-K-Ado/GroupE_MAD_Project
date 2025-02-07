@@ -24,7 +24,5 @@
 
 #### initial design mock ups- Dolma&Dan 
 
-#### Create UI using figma - Yumeng
-
 #### Project requirements as user stories - Komi
 
