@@ -1,28 +1,27 @@
 # GroupE_MAD_Project
 
-# IST 303 Team Project
+## IST 303 Team Project
 
-# Part A
+## Part A
 
-#### Soren- business/sociology
+### Soren- business/sociology
 
-#### Komi- IT
+### Komi- IT
 
-#### Dolma- Policy research
+### Dolma- Policy research
 
-#### Yumeng- AI 
+### Yumeng- AI
 
-#### Dan- media
+### Dan- media
 
-## Project ideas:
+## Project ideas
 
-#### Mutual aid database (specific to fire aid?)
+### Mutual aid database (specific to fire aid?)
 
 #### Action items
 
-#### Identify stakeholders- Soren 
+#### Identify stakeholders- Soren
 
-#### initial design mock ups- Dolma&Dan 
+#### initial design mock ups- Dolma&Dan
 
-#### Project requirements as user stories - Komi
-
+#### Project requirements as user stories - Komi 
