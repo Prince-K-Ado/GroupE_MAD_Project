@@ -11,7 +11,7 @@ The home screen is the entry point where users can see a snapshot of available r
 - **Resource Categories:** Buttons or links to categories like food, housing, medical, etc.
 - **Active Requests:** List or grid of current needs in the community (e.g., "Looking for groceries", "Need medical supplies").
 - **Available Volunteers:** A list of volunteers currently offering help.
-- **Call to Action:** A prominent button to "Make a Request" or "Offer Help".
+- **Call to Action:** A prominent button to "Make a Request" or "Offer Help". (donation call lines, external resources- links)
 
 ---
 
