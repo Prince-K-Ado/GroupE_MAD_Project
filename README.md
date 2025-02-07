@@ -1,4 +1,4 @@
-# GroupE
+# GroupE_MAD_Project
 
 # IST 303 Team Project
 
