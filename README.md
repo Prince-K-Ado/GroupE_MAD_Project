@@ -10,8 +10,6 @@
 
 ### Dolma- Policy research
 
-### Yumeng- AI
-
 ### Dan- media
 
 ## Project ideas
