@@ -35,3 +35,13 @@
 #### - Milestone 3 will be more refined and have functionality
 
 #### Meetings will be before class every week, as well as virtual calls as needed (we have time blocked out if we need the time)
+
+---
+
+## To Get Started with the project in your Environment
+
+1. Clone the repo.
+2. Install dependencies ```pip install -r requirements.txt```.
+3. Define the app that need to run. For Linux Env ```export FLASK_APP=app/__init__.py```. For Windows ```set FLASK_APP=app\__init__.py```
+4. Run ```flask run``` (Flask)
+5. To run the Test type ```pytest``` in the terminal.
