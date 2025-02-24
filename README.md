@@ -44,4 +44,4 @@
 2. Install dependencies ```pip install -r requirements.txt```.
 3. Define the app that need to run. For Linux Env ```export FLASK_APP=app/__init__.py```. For Windows ```set FLASK_APP=app\__init__.py```
 4. Run ```flask run``` (Flask)
-5. To run the Test type ```pytest``` in the terminal.
+5. To run the tests sample, type ```pytest``` in the terminal.
