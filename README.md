@@ -4,7 +4,8 @@ For our project we want to create a mutual aid crowdfunding database, modeled af
 
 Stakeholders include entities creating listings and entities donating to the listings.
 
-Milestone 1 will include a login page and option to create a listing. (For a detailed description of our milestone 1 please refer to the link: milestones/Milestone1.md )
+Milestone 1 will include a login page and option to create a listing. (For a detailed description of our milestone 1 please refer to the link: - [Milestone 1](milestones/Milestone1.md)
+
 
 Milestone 2 will be more refined and have bare bones graphic design as well as base functionality for the donating and making listing functions as well as user profiles and ability to create listings.
 Milestone 3 will be more refined and have functionality.
