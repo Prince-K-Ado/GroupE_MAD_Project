@@ -24,6 +24,9 @@ Meetings will be before class every week, as well as virtual calls as needed (we
 
 We found it easier to update the Google Doc for planning for more syncronous work, and using GitHub to work on the actual code of the project. We have a Discord server for communication.
 
+---
+
+## To Get Started with the project in your Environment
 
 1. Clone the repo.
 2. Install dependencies ```pip install -r requirements.txt```.
