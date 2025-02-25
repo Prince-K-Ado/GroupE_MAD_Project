@@ -4,7 +4,7 @@ For our project we want to create a mutual aid crowdfunding database, modeled af
 
 Stakeholders include entities creating listings and entities donating to the listings.
 
-Milestone 1 will include a login page and option to create a listing. (For a detailed description of our milestone 1 please refer to the link: 
+Milestone 1 will include a login page and option to create a listing. (For a detailed description of our milestone 1 please refer to the link:
 
 ## - [Milestone 1](milestones/Milestone1.md)
 
@@ -15,7 +15,6 @@ At the conclusion of Milestone 1, the deliverables will include a fully function
 Next Steps After Milestone 1
 
 Following the successful completion of Milestone 1, stakeholder feedback will be collected to assess the functionality and security of the login and listing creation processes. This feedback will help in preparing for Milestone 2, where additional features such as donation functionality and user profiles will be introduced, with graphic design improvements to be implemented later.
-
 
 Milestone 2 will be more refined and have bare bones graphic design as well as base functionality for the donating and making listing functions as well as user profiles and ability to create listings.
 Milestone 3 will be more refined and have functionality.
