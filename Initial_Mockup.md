@@ -1,69 +1,161 @@
-# App Screen Designs
+# App Screen Designs - Mutual Aid Crowdfunding Database
 
-## 1. Home Screen (Dashboard)
+## 1. Home Screen (Donation Listings)
+### Purpose:
+The home screen serves as the central hub where users can browse donation requests, filter based on urgency, and navigate to different sections of the app.
 
-**Purpose:**  
-The home screen is the entry point where users can see a snapshot of available resources and requests. This screen also provides navigation to other sections of the app.
+### Elements:
+Header: App logo, user profile, settings menu.
 
-**Elements:**
-- **Header:** App logo, user profile, settings icon.
-- **Search Bar:** To search for resources or requests.
-- **Resource Categories:** Buttons or links to categories like food, housing, medical, etc.
-- **Active Requests:** List or grid of current needs in the community (e.g., "Looking for groceries", "Need medical supplies").
-- **Available Volunteers:** A list of volunteers currently offering help.
-- **Call to Action:** A prominent button to "Make a Request" or "Offer Help". (donation call lines, external resources- links)
+Search Bar: Allows users to search for specific donation requests.
 
----
+Filter Options: Categories such as Urgency, Type of Need, Location.
 
-## 2. Request Form Screen
+Active Requests (Listings):
 
-**Purpose:**  
-Allows users to submit a new request for help. Users can specify what they need, when they need it, and where it should be delivered.
+List of users requesting aid, each with:
 
-**Elements:**
-- **Title:** "Request Help"
-- **Input Fields:**
-  - **Need Type:** Dropdown for categories (Food, Housing, Medical, etc.).
-  - **Description:** Text box for describing the request in more detail.
-  - **Urgency:** Options like “Immediate”, “Within 24 hours”, or “Flexible”.
-  - **Location:** Address input field or map-based selection.
-  - **Preferred Contact:** Phone number or email input for contact.
-- **Submit Button:** "Submit Request"
+Profile picture and name.
 
----
+Type of request (e.g., Medical, Housing, Food).
 
-## 3. Volunteer Profile Screen
+Amount needed vs. amount raised.
 
-**Purpose:**  
-Displays volunteer information and allows users to manage their offers.
+"Donate" button.
 
-**Elements:**
-- **Profile Info:** Name, photo, bio, and contact information.
-- **Skills/Areas of Help:** List of services the volunteer offers (e.g., grocery delivery, medical supplies, emotional support).
-- **Availability:** Calendar or time slots showing when the volunteer is available.
-- **History:** A list of requests they've helped with or fulfilled.
+Featured Donors/Volunteers: List of users who have contributed recently.
 
----
+Call to Action: Prominent buttons for:
 
-## 4. Resource Listing Page
+"Request Aid" – To create a new donation request.
 
-**Purpose:**  
-Displays a list of available resources in the community (e.g., food pantries, shelters, medical supplies).
+"Donate Now" – To support an active request.
 
-**Elements:**
-- **Categories:** Filter or sort resources by category (e.g., food, shelter, medical).
-- **Resource Cards:** Each resource includes a name, brief description, and contact details.
-- **Search:** Ability to search for a specific resource.
-- **Map View:** Option to view resources on a map based on location.
+External Resource Links (emergency donation hotlines, community organizations).
 
----
+## 2. Request Submission Screen (Create a Donation Request)
 
-## 5. Notifications Screen
+### Purpose:
 
-**Purpose:**  
-Provides updates to users on their requests, offers, and community news.
+Allows users in need to submit a request for financial or material aid.
 
-**Elements:**
-- **List of Notifications:** Requests for help, volunteer updates, new resources.
-- **Push Notifications:** Alerts for urgent needs or available resources nearby.
-- **Status Updates:** Notifications when a request has been fulfilled or when a volunteer is available.
+### Elements:
+
+#### Title: "Request Assistance"
+
+Input Fields:
+
+Category: Dropdown for selection (Medical, Housing, Food, Disaster Relief, etc.).
+
+Description: Text box for a detailed explanation of the need.
+
+Urgency Level: Options like "Immediate", "Within a week", "Flexible".
+
+Funding Goal: Amount of money required (optional for material donations).
+
+Location: Address input field or location pin on a map.
+
+Preferred Contact: Email or phone number (optional for privacy).
+
+Upload Images: Users can attach images (e.g., medical bills, housing damage).
+
+Submit Button: "Submit Request"
+
+#### 3. Donation Detail Page
+
+Purpose:
+
+Provides a detailed view of a specific donation request.
+
+
+Elements:
+
+User Profile & Request Title: Requester’s name, photo, and request category.
+
+Full Description: Expanded details of the donation request.
+
+Donation Progress Bar: Amount needed vs. amount raised.
+
+Donation Options:
+Donate Money (via integrated payment system).
+Offer Material Aid (contact the requester for physical donations).
+
+Updates Section: Requester can post updates for donors.
+
+Comments Section: Donors can ask questions or leave messages.
+
+Action Buttons:
+"Donate Now" – To contribute funds.
+"Share Request" – To spread awareness via social media.
+
+## 4. User Dashboard (Donors & Requesters)
+
+### Purpose:
+Allows users to track their donation activity and manage requests.
+
+### Elements:
+
+Tabs:
+
+"My Requests" – List of submitted donation requests with status updates.
+
+"My Donations" – History of donations made, with transaction details.
+
+### Donation Insights:
+
+Total Donations Received (for requesters).
+
+Total Donations Given (for donors).
+
+Notifications: Updates about requests and donations.
+
+Create Request Button: Shortcut for users to submit a new request.
+
+## 5. Volunteer Profile Screen
+
+### Purpose:
+Displays a volunteer or donor’s profile with details about their contributions.
+
+### Elements:
+Profile Info: Name, photo, bio, contact details (if shared).
+
+Contributions Summary: List of donations made, both financial and material.
+
+Availability (For Volunteers): If they are offering non-monetary help, their available time slots.
+
+Testimonials & Reviews: Feedback from people they have helped.
+
+## 6. Notifications Screen
+
+### Purpose:
+
+Keeps users updated on donation progress, urgent requests, and community news.
+
+### Elements:
+
+New Requests: Alerts for urgent aid needs in the community.
+
+Donation Confirmation: Updates when a user’s donation has been received.
+
+Messages & Replies: Responses to donation-related inquiries.
+
+Emergency Alerts: High-priority donation needs or disaster relief notices.
+
+
+## Next Steps
+
+Refine wireframes & UI designs based on user experience best practices.
+
+Document user interactions for seamless navigation.
+
+Plan testing strategy for ensuring accessibility and usability.
+
+## Notes
+This document is subject to updates based on feedback and testing.
+
+UI elements should prioritize ease of use, accessibility, and transparency.
+
+Future iterations may include integrated payment options and verification features.
+
+
+
