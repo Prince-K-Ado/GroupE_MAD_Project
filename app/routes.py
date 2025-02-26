@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from app import db
-from models import User
+from app.models import User, Post
 from werkzeug.security import generate_password_hash, check_password_hash
 
 main = Blueprint('main', __name__)
@@ -81,13 +81,19 @@ def feed():
     if request.method == 'POST':
         # For demo purposes, handle media file upload (picture or video)
         media = request.files.get('media')
+        content = request.form.get('content')
         if media:
             # Add file type, size validations here and store the file as needed.
+            filename = media.filename
             flash('Media uploaded successfully!', 'success')
         else:
+            filename = None
             flash('No file selected.', 'warning')
-    
-    return render_template('feed.html')
+        new_post = Post(user_id=session['user_id'], content=content, media=filename)
+        db.session.add(new_post)
+        db.session.commit()
+        flash('Post created successfully!', 'success')
+    return redirect(url_for('feed.html'))
 
 @main.route('/logout')
 def logout():

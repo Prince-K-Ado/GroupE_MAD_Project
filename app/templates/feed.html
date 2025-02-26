@@ -5,9 +5,13 @@
   <p>Welcome! Post your campaign by uploading a picture or video.</p>
   <form method="POST" action="{{ url_for('main.feed') }}" enctype="multipart/form-data">
     <div class="form-group">
-      <label for="media">Upload Media (Picture or Video):</label>
-      <input type="file" class="form-control-file" name="media" id="media">
+        <label for="content">Post Content:</label>
+        <textarea name="content" id="content" class="form-control" rows="3"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Upload</button>
+    <div class="form-group">
+        <label for="media">Upload Media (Image or Video):</label>
+        <input type="file" name="media" id="media" class="form-control-file">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Post</button>
   </form>
 {% endblock %}

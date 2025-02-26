@@ -1,27 +1,67 @@
+import pytest
+from app import create_app, db
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import pytest
-from app import create_app
+from app.models import User
+from werkzeug.security import generate_password_hash
 
 @pytest.fixture
 def client():
-    
     app = create_app()
     app.config['TESTING'] = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
     with app.test_client() as client:
+        with app.app_context():
+            db.create_all()
+            # Create a test user
+            user = User(email='test@example.com', password=generate_password_hash('password'))
+            db.session.add(user)
+            db.session.commit()
         yield client
 
 def test_login_success(client):
     response = client.post('/login', data={
-        'email': 'user@example.com',
-        'password': 'password123'
+        'email': 'test@example.com',
+        'password': 'password'
     }, follow_redirects=True)
-    assert b"Welcome back" in response.data
+    assert b'Login successful!' in response.data
 
 def test_login_failure(client):
     response = client.post('/login', data={
-        'email': 'user@example.com',
+        'email': 'test@example.com',
         'password': 'wrongpassword'
     }, follow_redirects=True)
-    assert b"Invalid credentials" in response.data
+    assert b'Invalid credentials' in response.data
+
+
+
+
+
+# import sys
+# import os
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# import pytest
+# from GroupE.app import create_app
+
+# @pytest.fixture
+# def client():
+    
+#     app = create_app()
+#     app.config['TESTING'] = True
+#     with app.test_client() as client:
+#         yield client
+
+# def test_login_success(client):
+#     response = client.post('/login', data={
+#         'email': 'user@example.com',
+#         'password': 'password123'
+#     }, follow_redirects=True)
+#     assert b"Welcome back" in response.data
+
+# def test_login_failure(client):
+#     response = client.post('/login', data={
+#         'email': 'user@example.com',
+#         'password': 'wrongpassword'
+#     }, follow_redirects=True)
+#     assert b"Invalid credentials" in response.data
