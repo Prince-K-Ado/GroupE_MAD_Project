@@ -22,7 +22,7 @@ Milestone 3 will be more refined and have functionality.
 ## Meeting schedule
 
 Meetings will be before class every week, as well as virtual calls as needed (we have time blocked out if we need the time)
-For a more detailed record of our discussions in the meetings, we have created a log ina folder on GitHub which can be accessed here
+For a more detailed record of our discussions in the meetings, we have created a log in a folder on GitHub which can be accessed through the link. 
 
 We also have made a Google Doc for planning for more syncronous work, and using GitHub to work on the actual code of the project. We have created a Discord server where we communicate the tasks we are currently working on as well as checking in with our team mates as and when required.
 
