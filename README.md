@@ -7,11 +7,11 @@ This database will allow users to create listings for financial assistance and e
 
 ## - [Milestone 1](milestones/Milestone1.md)
 
-Deliverables
+### Deliverables
 
 At the conclusion of Milestone 1, the deliverables will include a fully functional login page with secure authentication and session management, and a listing creation page that is fully integrated with the user system. Documentation will be updated to reflect the environment setup, running instructions, and testing procedures. An automated testing suite will also be in place, covering key functionalities of both the login and listing creation modules.
 
-Next Steps After Milestone 1
+### Next Steps After Milestone 1
 
 Following the successful completion of Milestone 1, stakeholder feedback will be collected to assess the functionality and security of the login and listing creation processes. This feedback will help in preparing for Milestone 2, where additional features such as donation functionality and user profiles will be introduced, with graphic design improvements to be implemented later.
 
