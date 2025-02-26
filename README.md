@@ -19,7 +19,7 @@ Following the successful completion of Milestone 1, stakeholder feedback will be
 Milestone 2 will be more refined and have bare bones graphic design as well as base functionality for the donating and making listing functions as well as user profiles and ability to create listings.
 Milestone 3 will be more refined and have functionality.
 
-## Meeting schedule (Weekly_Meetings.md)
+## [Meeting schedule] (Weekly_Meetings.md)
 
 Meetings will be before class every week, as well as virtual calls as needed (we have time blocked out if we need the time)
 For a more detailed record of our discussions in the meetings, we have created a log in a folder on GitHub which can be accessed through the link. 
