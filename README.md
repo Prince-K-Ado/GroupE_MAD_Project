@@ -5,8 +5,6 @@ The [Mutual Aid Crowdfunding Database](Project%20Details.md) is a platform desig
 This database will allow users to create listings for financial assistance and enable donors to browse and choose whom to support, ensuring direct impact and efficient allocation of resources.
 
 
-Milestone 1 will include a login page and option to create a listing. (For a detailed description of our milestone 1 please refer to the link:
-
 ## - [Milestone 1](milestones/Milestone1.md)
 
 Deliverables
