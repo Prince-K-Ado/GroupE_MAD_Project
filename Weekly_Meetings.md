@@ -5,7 +5,7 @@
 -------------------------------------------
 📅 January 31, 2025
 -------------------------------------------
-Meeting Type: Remote
+Meeting Type: Remote (Attended by all team members)
 Topics Discussed:
 - Team members introduced themselves and shared their areas of expertise.
 - Discussed initial project ideas and possible directions for development.
@@ -13,7 +13,7 @@ Topics Discussed:
 -------------------------------------------
 📅 February 4, 2025
 -------------------------------------------
-Meeting Type: Remote
+Meeting Type: Remote (Attended by all team members)
 Topics Discussed:
 - Developed a more detailed concept for the Mutual Aid Database.
 - Discussed user stories to understand different user interactions with the platform.
@@ -22,7 +22,7 @@ Topics Discussed:
 -------------------------------------------
 📅 February 19, 2025
 -------------------------------------------
-Meeting Type: Remote
+Meeting Type: Remote (Attended by all team members)
 Topics Discussed:
 
 🔹 Project Management & Documentation
