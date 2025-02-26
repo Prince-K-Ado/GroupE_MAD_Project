@@ -1,8 +1,9 @@
-# Project Requirements
+# Project Overview
 
-For our project we want to create a mutual aid crowdfunding database, modeled after web sites like Craigslist and goFundMe.
+The Mutual Aid Crowdfunding Database is a platform designed to facilitate assistance for individuals and communities affected by crises, such as wildfires, natural disasters, or financial hardship. Inspired by platforms like Craigslist and GoFundMe, our project aims to provide a streamlined, transparent, and user-friendly system where people in need can request aid and donors can easily contribute.
 
-Stakeholders include entities creating listings and entities donating to the listings.
+This database will allow users to create listings for financial assistance and enable donors to browse and choose whom to support, ensuring direct impact and efficient allocation of resources.
+
 
 Milestone 1 will include a login page and option to create a listing. (For a detailed description of our milestone 1 please refer to the link:
 
