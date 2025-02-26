@@ -60,7 +60,11 @@ Tasks:
 
 ## 📌 Summary of Key Responsibilities
 
+<<<<<<< Updated upstream
 ### Team Member	Key Responsibilities
+=======
+Team Member	Key Responsibilities
+>>>>>>> Stashed changes
 
 Soren:	Burndown chart, user story tracking, team progress tracking
 
