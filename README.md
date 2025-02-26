@@ -25,7 +25,7 @@ For a more detailed record of our discussions in the meetings, we have created a
 
 We also have made a Google Doc for planning for more syncronous work, and using GitHub to work on the actual code of the project. We have created a Discord server where we communicate the tasks we are currently working on as well as checking in with our team mates as and when required.
 
-## Task Allocation 
+## [Task Allocation](TaskAllocation.md)
 
 After our first discussion, we assigned tasks to each team member based on their strengths and weaknesses. A rudimentary list was created which is still ever evolving based on the needs and the stage of the project. 
 
