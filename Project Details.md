@@ -62,20 +62,25 @@ Listings include descriptions, images, funding goals, and urgency levels.
 
 Donors can search listings based on:
 Location (e.g., wildfire-affected areas).
+
 Category (medical, housing, disaster relief, etc.).
+
 Urgency (critical needs vs. general support).
 
 🔹 Donation System
 
 Donors can contribute financial aid securely through the platform.
+
 Option to pledge material donations (clothing, food, shelter, etc.).
 
 🔹 Verification & Security
 
 Listing verification process to reduce fraud.
+
 User ratings and reviews to increase trust.
 
 🔹 Milestones & Progress Tracking
 
 Requesters can update their listings with progress reports.
+
 Donors receive notifications about fund utilization and impact.
