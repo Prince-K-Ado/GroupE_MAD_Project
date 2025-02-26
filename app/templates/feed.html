@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Feed{% endblock %}
+{% block content %}
+  <h2>Your Feed</h2>
+  <p>Welcome! Post your campaign by uploading a picture or video.</p>
+  <form method="POST" action="{{ url_for('main.feed') }}" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="media">Upload Media (Picture or Video):</label>
+      <input type="file" class="form-control-file" name="media" id="media">
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+  </form>
+{% endblock %}
