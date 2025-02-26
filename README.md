@@ -19,8 +19,9 @@ Following the successful completion of Milestone 1, stakeholder feedback will be
 Milestone 2 will be more refined and have bare bones graphic design as well as base functionality for the donating and making listing functions as well as user profiles and ability to create listings.
 Milestone 3 will be more refined and have functionality.
 
-Meetings will be before class every week, as well as virtual calls as needed (we have time blocked out if we need the time)
+## Meeting schedule
 
+Meetings will be before class every week, as well as virtual calls as needed (we have time blocked out if we need the time)
 We found it easier to update the Google Doc for planning for more syncronous work, and using GitHub to work on the actual code of the project. We have a Discord server for communication.
 
 ---
