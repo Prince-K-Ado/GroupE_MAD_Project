@@ -5,9 +5,13 @@ This database will allow users to create listings for financial assistance and e
 
 ## Key Objectives
 ✅ Provide a centralized platform for individuals seeking and offering aid.
+
 ✅ Ensure transparency and accountability in crowdfunding efforts.
+
 ✅ Facilitate direct connections between donors and recipients.
+
 ✅ Offer an intuitive user experience, modeled after platforms like Craigslist and GoFundMe.
+
 
 ## 👥 Stakeholders
 1️⃣ Requesters (Aid Seekers)
