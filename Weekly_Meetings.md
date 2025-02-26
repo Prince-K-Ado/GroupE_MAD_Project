@@ -50,7 +50,10 @@ Topics Discussed:
 -------------------------------------------
 📌 Next Steps:
 -------------------------------------------
-✅ Finalize and document refined user stories & workflows.
-✅ Begin development of the login system (Milestone 1).
-✅ Assign tasks and set time estimates for key deliverables.
+✅ Finalize and document refined user stories & workflows
+
+✅ Begin development of the login system (Milestone 1)
+
+✅ Assign tasks and set time estimates for key deliverables
+
 
