@@ -60,7 +60,7 @@ Tasks:
 
 ## 📌 Summary of Key Responsibilities
 
-Team Member	Key Responsibilities
+### Team Member	Key Responsibilities
 
 Soren:	Burndown chart, user story tracking, team progress tracking
 
