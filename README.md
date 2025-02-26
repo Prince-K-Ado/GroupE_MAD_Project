@@ -1,4 +1,4 @@
-# Project Overview
+# Project Overview- Mutual Aid Database 
 
 The [Mutual Aid Crowdfunding Database](Project%20Details.md) is a platform designed to facilitate assistance for individuals and communities affected by crises, such as wildfires, natural disasters, or financial hardship. Inspired by platforms like Craigslist and GoFundMe, our project aims to provide a streamlined, transparent, and user-friendly system where people in need can request aid and donors can easily contribute.
 
