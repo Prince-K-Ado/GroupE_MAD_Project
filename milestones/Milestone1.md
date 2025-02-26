@@ -1,4 +1,4 @@
-Milestone 1: Core Functionality – Login & Listing Creation
+## Milestone 1: Core Functionality – Login & Listing Creation
 
 ## Objective
 
