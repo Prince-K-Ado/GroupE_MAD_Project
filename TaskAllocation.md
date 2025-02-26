@@ -40,7 +40,10 @@ Tasks:
 
 ✅ Maintain and document meeting records for tracking discussions and decisions.
 
-✅ Set up the testing environment for the development team to validate features.
+✅ Set up the testing environment to validate features of the code for the App.
+
+✅ Define Milestones and tracking progress for achieving the milestone defined
+
 
 ## 🔹 Komi – Login & Post Page Development, Testing Functionality
 
