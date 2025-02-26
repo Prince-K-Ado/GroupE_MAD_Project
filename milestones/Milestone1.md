@@ -1,6 +1,6 @@
 Milestone 1: Core Functionality – Login & Listing Creation
 
-#Objective
+##Objective
 
 The primary objective for Milestone 1 is to build a robust foundation that allows for secure user authentication and enables logged-in users to create listings. This phase focuses solely on functionality and security, postponing graphic design enhancements for later milestones.
 
