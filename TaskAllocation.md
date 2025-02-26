@@ -6,6 +6,7 @@ Each team member has been assigned specific tasks based on their strengths and e
 ## 🔹 Soren – Burndown Chart, User Story Tracking & Estimation
 
 Tasks:
+
 ✅ Develop and maintain a burndown chart to track progress and velocity.
 
 ✅ Document and refine user story tasks based on the project's evolving needs.
@@ -16,8 +17,10 @@ Tasks:
 
 ✅ Create iteration-based estimations for task completion and workload balancing.
 
-## 🔹 Dan – User Story Definition & Estimation
+## 🔹 Daniel – User Story Definition & Estimation
+
 Tasks:
+
 ✅ Define and document detailed user stories for each feature.
 
 ✅ Collaborate with Soren to refine time estimates based on project complexity.
@@ -28,7 +31,9 @@ Tasks:
 
 
 ## 🔹 Dolma – UI/UX Design, Meetings, & Testing Environment
+
 Tasks:
+
 ✅ Create initial design mockups for the application layout and features.
 
 ✅ Define and refine the user experience (UX) for seamless interactions.
@@ -38,7 +43,9 @@ Tasks:
 ✅ Set up the testing environment for the development team to validate features.
 
 ## 🔹 Komi – Login & Post Page Development, Testing Functionality
+
 Tasks:
+
 ✅ Develop the login system to handle user authentication.
 
 ✅ Implement the post page to allow users to submit donation requests.
