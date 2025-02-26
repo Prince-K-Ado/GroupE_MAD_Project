@@ -4,7 +4,7 @@
 
 The primary objective for Milestone 1 is to build a robust foundation that allows for secure user authentication and enables logged-in users to create listings. This phase focuses solely on functionality and security, postponing graphic design enhancements for later milestones.
 
-For a more detailed understanding of what our app would look like, we created a [mockup](Initial_Mockup.md) of some of the elements that our app would have.
+For a more detailed understanding of what our app would look like, we created a mockup of some of the elements that our app would have.
 
 ## User Authentication
 For the login functionality, the goal is to develop a straightforward login page with clearly labeled fields for email/username and password. On the backend, a user model will be established in the database, storing essential details such as username, email, and a securely hashed password. Secure authentication will be implemented using a framework like Flask-Login, ensuring proper session management, input validation, and error handling. Security measures include using modern password hashing methods and CSRF protection to safeguard form submissions. Comprehensive testing will involve both unit tests for verifying successful logins and error conditions, as well as manual testing to ensure proper function across various environments.
