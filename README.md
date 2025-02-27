@@ -18,7 +18,7 @@ Following the successful completion of Milestone 1, stakeholder feedback will be
 
 Milestone 2 will be more refined, and will be more user friendly and have functionalityfor the donating and making listing functions as well as user profiles and ability to create listings. 
 
-We have created an [initial layout](Initial_layout.md) of some of the features that we would like to include in our website as well
+We have created an [initial layout](Initial_Mockup.md) of some of the features that we would like to include in our website as well
 
 
 ## [Meeting Minutes](Weekly_Meetings.md)
