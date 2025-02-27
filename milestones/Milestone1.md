@@ -24,5 +24,66 @@ At the conclusion of Milestone 1, the deliverables will include a fully function
 
 ## Next Steps After Milestone 1
 
-Following the successful completion of Milestone 1, stakeholder feedback will be collected to assess the functionality and security of the login and listing creation processes. This feedback will help in preparing for Milestone 2, where additional features such as donation functionality and user profiles will be introduced, with graphic design improvements to be implemented later.
+Following the successful completion of Milestone 1, stakeholder feedback from within the team and during class presentation will be collected to assess the functionality and security of the login and listing creation processes. This feedback will help in preparing for Milestone 2, where additional features such as donation functionality and user profiles will be introduced, with graphic design improvements to be implemented later.
+
+## Milestone 1.0: Iterations Breakdown
+Milestone 1.0 focuses on building the User Authentication and Fundraising Campaign Creation functionalities. This milestone will be broken down into two iterations, ensuring an efficient development process while considering velocity. The total estimated work time accounts for task complexity and team capacity.
+
+## Iteration 1: User Authentication (Week 1)
+
+User Stories Included:
+
+As a user affected by a natural disaster, I want to register and log in to have a secure account that saves my posts and preferences.
+
+## Tasks:
+
+User Authentication Implementation (4 days) - Assigned to Komi
+
+Develop user registration and login system.
+
+Implement secure password storage and authentication.
+
+Ensure session management for logged-in users.
+
+### Time Estimates:
+Total Work Days: 4 days
+
+Team Velocity Considerations: Given Komi’s experience with authentication systems, an estimated 4 workdays is allocated to complete this task with a buffer for minor debugging.
+
+## Iteration 2: Fundraising Campaign Creation (Week 2)
+
+User Stories Included:
+
+As a user affected by a natural disaster,I want to create a fundraising campaign with a title, description, financial goal, and percentage progress.
+As a user, I want to upload images to further showcase my struggle and trustworthiness.
+
+## Tasks:
+Create Fundraising Post (3 days) - Assigned to Daniel and Dolma
+
+Implement a form for campaign creation.
+
+Include title, description, financial goal, and progress tracking.
+
+Image Upload Functionality (3 days) - Assigned to Komi and Soren
+
+Enable image upload for fundraising campaigns.
+
+Ensure images are properly stored and displayed.
+
+## Time Estimates:
+Total Work Days: 6 days (3 days for Daniel& Dolma 3 days for Komi & Soren in parallel)
+
+## Team Velocity Considerations:
+Given the complexity of campaign creation, 3 workdays is a reasonable estimate.
+
+Image upload is handled by two developers, allowing parallel progress within 3 workdays to match the campaign form timeline.
+
+## Total Work and Completion Time:
+Total Estimated Work for Milestone 1.0: 10 days
+Total Completion Time: 2 weeks
+
+## Velocity Considerations: 
+Each iteration is structured to fit within a 1-week sprint based on estimated developer capacity, ensuring that authentication is completed before campaign creation begins. Buffers allow for debugging and minor adjustments without delaying subsequent milestones.
+
+
 

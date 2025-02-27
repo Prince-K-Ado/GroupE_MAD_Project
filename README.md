@@ -1,7 +1,5 @@
 # Project Overview- Mutual Aid Database
 
-[Google Doc Link](https://docs.google.com/document/d/1AGj9YwZyZUyJDiuea-FdOafA8IYKDKXiPMp5zLLlWQ0/edit?usp=sharing)
-
 The [Mutual Aid Crowdfunding Database](Project%20Details.md) is a platform designed to facilitate assistance for individuals and communities affected by crises, such as wildfires, natural disasters, or financial hardship. Inspired by platforms like Craigslist and GoFundMe, our project aims to provide a streamlined, transparent, and user-friendly system where people in need can request aid and donors can easily contribute.
 
 This database will allow users to create listings for financial assistance and enable donors to browse and choose whom to support, ensuring direct impact and efficient allocation of resources.
@@ -16,15 +14,17 @@ At the conclusion of Milestone 1, the deliverables will include a fully function
 
 Following the successful completion of Milestone 1, stakeholder feedback will be collected to assess the functionality and security of the login and listing creation processes. This feedback will help in preparing for Milestone 2, where additional features such as donation functionality and user profiles will be introduced, with graphic design improvements to be implemented later.
 
-Milestone 2 will be more refined and have bare bones graphic design as well as base functionality for the donating and making listing functions as well as user profiles and ability to create listings.
-Milestone 3 will be more refined and have functionality.
+Milestone 2 will be more refined, and will be more user friendly and have functionalityfor the donating and making listing functions as well as user profiles and ability to create listings. 
+
+We have created an [initial layout](Initial_Mockup.md) of some of the features that we would like to include in our website as well
+
 
 ## [Meeting Minutes](Weekly_Meetings.md)
 
 Meetings will be before class every week, as well as virtual calls as needed (we have time blocked out if we need the time)
 For a more detailed record of our discussions in the meetings, we have created a log in a folder on GitHub which can be accessed through the link.
 
-We also have made a Google Doc for planning for more syncronous work, and using GitHub to work on the actual code of the project. We have created a Discord server where we communicate the tasks we are currently working on as well as checking in with our team mates as and when required.
+We also have made a [Google Doc](https://docs.google.com/document/d/1AGj9YwZyZUyJDiuea-FdOafA8IYKDKXiPMp5zLLlWQ0/edit?usp=sharing) for planning for more syncronous work, and using GitHub to work on the actual code of the project. We have created a Discord server where we communicate the tasks we are currently working on as well as checking in with our team mates as and when required.
 
 ## [Task Allocation](TaskAllocation.md)
 
