@@ -57,20 +57,23 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
+        
         if password != confirm_password:
             flash('Passwords do not match.', 'danger')
             return render_template('register.html')
-        # Check if user already exists
+        
         if User.query.filter_by(email=email).first():
             flash('User already exists.', 'warning')
             return render_template('register.html')
-        # Create a new user with hashed password
+        
         new_user = User(email=email, password=generate_password_hash(password))
         db.session.add(new_user)
-        db.session.commit()
+        db.session.commit()  # This must be within an active app context
         flash('Registration successful! Please log in.', 'success')
         return redirect(url_for('main.login'))
+        
     return render_template('register.html')
+
 @main.route('/feed', methods=['GET', 'POST'])
 def feed():
     # Require login to access the feed

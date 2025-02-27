@@ -1,4 +1,7 @@
 import pytest
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app import create_app, db
 from app.models import User
 
@@ -7,10 +10,16 @@ def client():
     app = create_app()
     app.config['TESTING'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
-    with app.test_client() as client:
-        with app.app_context():
-            db.create_all()
-        yield client
+
+    with app.app_context():
+        db.create_all()
+
+    client = app.test_client()
+    yield client
+
+    with app.app_context():
+        db.session.remove()
+        db.drop_all()
 
 def test_register_success(client):
     response = client.post('/register', data={
@@ -26,4 +35,5 @@ def test_register_password_mismatch(client):
         'password': 'password123',
         'confirm_password': 'differentpassword'
     }, follow_redirects=True)
+    # Check for the expected error message
     assert b'Passwords do not match' in response.data
