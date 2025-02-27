@@ -48,17 +48,17 @@ Moderate content for policy compliance.
 Provide platform support for users.
 
 ## 🛠️ Features & Functionalities
-🔹 User Registration & Authentication
+### User Registration & Authentication
 
 Users can sign up and log in to access platform features.
 Secure login with email/password authentication.
 
-🔹 Listing Management
+### Listing Management
 
 Aid seekers can create, edit, and manage their listings.
 Listings include descriptions, images, funding goals, and urgency levels.
 
-🔹 Search & Filter Options
+### Search & Filter Options
 
 Donors can search listings based on:
 Location (e.g., wildfire-affected areas).
@@ -67,19 +67,19 @@ Category (medical, housing, disaster relief, etc.).
 
 Urgency (critical needs vs. general support).
 
-🔹 Donation System
+### Donation System
 
 Donors can contribute financial aid securely through the platform.
 
 Option to pledge material donations (clothing, food, shelter, etc.).
 
-🔹 Verification & Security
+### Verification & Security
 
 Listing verification process to reduce fraud.
 
 User ratings and reviews to increase trust.
 
-🔹 Milestones & Progress Tracking
+### Milestones & Progress Tracking
 
 Requesters can update their listings with progress reports.
 
