@@ -26,7 +26,7 @@ We have created an [initial layout](Initial_Mockup.md) of some of the features t
 Meetings will be before class every week, as well as virtual calls as needed (we have time blocked out if we need the time)
 For a more detailed record of our discussions in the meetings, we have created a log in a folder on GitHub which can be accessed through the link.
 
-We also have made a Google Doc for planning for more syncronous work, and using GitHub to work on the actual code of the project. We have created a Discord server where we communicate the tasks we are currently working on as well as checking in with our team mates as and when required.
+We also have made a [Google Doc](https://docs.google.com/document/d/1AGj9YwZyZUyJDiuea-FdOafA8IYKDKXiPMp5zLLlWQ0/edit?usp=sharing)for planning for more syncronous work, and using GitHub to work on the actual code of the project. We have created a Discord server where we communicate the tasks we are currently working on as well as checking in with our team mates as and when required.
 
 ## [Task Allocation](TaskAllocation.md)
 
