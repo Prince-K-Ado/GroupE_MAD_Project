@@ -14,7 +14,7 @@ This database will allow users to create listings for financial assistance and e
 
 
 ## 👥 Stakeholders
-1️⃣ Requesters (Aid Seekers)
+### Requesters (Aid Seekers)
 
 Entities that create listings requesting financial or material support.
 
@@ -26,7 +26,7 @@ Set a funding goal.
 Communicate updates to donors.
 
 
-2️⃣ Donors (Aid Providers)
+### Donors (Aid Providers)
 
 Entities that browse listings and contribute financial or material support.
 
@@ -38,7 +38,7 @@ Donate funds or resources.
 Track contributions and receive updates.
 
 
-3️⃣ Platform Administrators
+### Platform Administrators
 
 Oversee operations, ensure compliance, and manage disputes.
 
