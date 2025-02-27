@@ -30,7 +30,7 @@ We also have made a Google Doc for planning for more syncronous work, and using 
 
 After our first discussion, we assigned tasks to each team member based on their strengths and weaknesses. A rudimentary list was created which is still ever evolving based on the needs and the stage of the project.
 
-## [Project Timeline & Features Overview](User_Stories.md)
+## [Project Timeline & Features Overview](User%20Stories.md)
 
 This Mutual Aid Crowdfunding Platform will be developed over eight weeks, ensuring a structured approach to implementing user authentication, fundraising campaigns, donor engagement, financial transactions, and admin tools. Each week focuses on a core aspect of the platform, progressively building towards a fully functional and user-friendly system.
 
