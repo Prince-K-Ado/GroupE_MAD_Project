@@ -34,6 +34,7 @@ After our first discussion, we assigned tasks to each team member based on their
 
 This Mutual Aid Crowdfunding Database will be developed over eight weeks, ensuring a structured approach to implementing user authentication, fundraising campaigns, donor engagement, financial transactions, and admin tools. Each week focuses on a core aspect of the platform, progressively building towards a fully functional and user-friendly system.
 
+![Burn down chart](https://github.com/Prince-K-Ado/GroupE_MAD_Project/blob/main/chartweek2.png)
 
 ---
 
