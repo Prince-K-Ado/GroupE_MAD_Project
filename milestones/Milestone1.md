@@ -71,7 +71,7 @@ Enable image upload for fundraising campaigns.
 Ensure images are properly stored and displayed.
 
 ## Time Estimates:
-Total Work Days: 6 days (3 days for DP, 3 days for K & SL in parallel)
+Total Work Days: 6 days (3 days for Daniel& Dolma 3 days for Komi & Soren in parallel)
 
 ## Team Velocity Considerations:
 Given the complexity of campaign creation, 3 workdays is a reasonable estimate.
