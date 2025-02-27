@@ -102,6 +102,12 @@ export FLASK_APP=app/__init__.py
 export FLASK_ENV=development
 ```
 
+### Build the Database with Table (User, Post)
+
+```bash
+python .\create_db.py
+```
+
 ### Run the Flask App
 
 In the terminal (with your virtual environment activated and environment variables set), run:
@@ -123,6 +129,17 @@ From the project root, run:
 ```bash
 pytest
 ```
+
+#### Note: The test will drop any table that is create during the process. Past users will drop from the database because the tables, user or post do not exist
+
+#### Reset and Rebuild the tables in the database by running the following or add a new user to the register form from the app
+
+```bash
+python .\create_db.py
+```
+
+
+
 
 This command will execute all tests located in the `tests/` directory.
 
