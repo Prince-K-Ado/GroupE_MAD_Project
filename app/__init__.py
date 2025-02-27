@@ -1,22 +1,21 @@
 from flask import Flask
 from app.config import Config
 from flask_sqlalchemy import SQLAlchemy
+# Create one instance of SQLAlchemy
 
-# Create a single SQLAlchemy instance
-db = SQLAlchemy()
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object(Config)
     
-    # Bind the SQLAlchemy instance to this app
-    db.init_app(app)
-    
-    # Import models so they are registered with SQLAlchemy
-    from app import models
+app = Flask(__name__)
+app.config.from_object(Config)
+# Bind SQLAlchemy to this app
+db = SQLAlchemy(app)
 
-    # Register blueprints
-    from app.routes import main
-    app.register_blueprint(main)
-    
-    return app
+# db.init_app(app)
+# Import models to register them with SQLAlchemy
+from app import models
+
+# Register your blueprints
+from app.routes import main as main_blueprint
+app.register_blueprint(main_blueprint)
+
+

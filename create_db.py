@@ -1,8 +1,4 @@
-from app import create_app, db
-
-app = create_app()
-
-# connection = sqlite3.connect('mini_gofundme.db')
+from app import app, db
 
 with app.app_context():
     db.create_all()

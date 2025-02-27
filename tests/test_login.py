@@ -1,27 +1,22 @@
+# tests/test_login.py
 import pytest
-import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from app import create_app, db
+from app import app, db
 from app.models import User
 from werkzeug.security import generate_password_hash
 
 @pytest.fixture
 def client():
-    app = create_app()
     app.config['TESTING'] = True
+    # For tests, use an in-memory SQLite database
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
-
     with app.app_context():
         db.create_all()
-            # Create a test user
-        user = User(email='test@example.com', password=generate_password_hash('password'))
-        db.session.add(user)
+        # Create a test user
+        test_user = User(email='test@example.com', password=generate_password_hash('password'))
+        db.session.add(test_user)
         db.session.commit()
-
     client = app.test_client()
     yield client
-
     with app.app_context():
         db.session.remove()
         db.drop_all()
@@ -39,6 +34,7 @@ def test_login_failure(client):
         'password': 'wrongpassword'
     }, follow_redirects=True)
     assert b'Invalid credentials' in response.data
+
 
 
 

@@ -5,18 +5,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 main = Blueprint('main', __name__)
 
-# For demonstration, using a simple in-memory user "database"
-users = {
-    "user@example.com": "password123"
-}
-
-# @main.route('/')
-# def index():
-#     # Redirect to login if not logged in
-#     if not session.get('user'):
-#         return redirect(url_for('main.login'))
-#     return f"Hello, {session.get('user')}! Welcome back."
-
 @main.route('/')
 def welcome():
     return render_template('welcome.html')
@@ -28,28 +16,24 @@ def about():
 @main.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        # Retrieve form data
         email = request.form.get('email')
         password = request.form.get('password')
+        
+        # Query for the user by email
         user = User.query.filter_by(email=email).first()
-        # Simple credential check
+        
+        # Check if user exists and password is correct
         if user and check_password_hash(user.password, password):
-            session['user'] = user.id
-            flash('Login successful!', 'success')
-            return redirect(url_for('main.feed'))
-        elif email in users and users[email] == password:
-            session['user'] = email
+            session['user_id'] = user.id
             flash('Login successful!', 'success')
             return redirect(url_for('main.feed'))
         else:
+            print("Login failed for", email)
             flash('Invalid credentials, please try again.', 'danger')
-            return render_template('login.html')
+    
+    # For GET requests or failed POST attempts, render the login page
     return render_template('login.html')
-
-# @main.route('/logout')
-# def logout():
-#     session.pop('user', None)
-#     flash('You have been logged out.', 'info')
-#     return redirect(url_for('main.login'))
 
 @main.route('/register', methods=['GET', 'POST'])
 def register():
@@ -70,8 +54,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()  # This must be within an active app context
         flash('Registration successful! Please log in.', 'success')
-        return redirect(url_for('main.login'))
-        
+        return redirect(url_for('main.login'))    
     return render_template('register.html')
 
 @main.route('/feed', methods=['GET', 'POST'])
@@ -96,7 +79,7 @@ def feed():
         db.session.add(new_post)
         db.session.commit()
         flash('Post created successfully!', 'success')
-    return redirect(url_for('feed.html'))
+    return render_template('feed.html')
 
 @main.route('/logout')
 def logout():
