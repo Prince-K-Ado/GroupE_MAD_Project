@@ -16,7 +16,9 @@ At the conclusion of Milestone 1, the deliverables will include a fully function
 
 Following the successful completion of Milestone 1, stakeholder feedback will be collected to assess the functionality and security of the login and listing creation processes. This feedback will help in preparing for Milestone 2, where additional features such as donation functionality and user profiles will be introduced, with graphic design improvements to be implemented later.
 
-Milestone 2 will be more refined, and will be more user friendly and have functionalityfor the donating and making listing functions as well as user profiles and ability to create listings.
+Milestone 2 will be more refined, and will be more user friendly and have functionalityfor the donating and making listing functions as well as user profiles and ability to create listings. 
+
+We have created an [initial layout](Initial_layout.md) of some of the features that we would like to include in our website as well
 
 
 ## [Meeting Minutes](Weekly_Meetings.md)
