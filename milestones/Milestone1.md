@@ -82,7 +82,8 @@ Image upload is handled by two developers, allowing parallel progress within 3 w
 Total Estimated Work for Milestone 1.0: 10 days
 Total Completion Time: 2 weeks
 
-## Velocity Considerations: Each iteration is structured to fit within a 1-week sprint based on estimated developer capacity, ensuring that authentication is completed before campaign creation begins. Buffers allow for debugging and minor adjustments without delaying subsequent milestones.
+## Velocity Considerations: 
+Each iteration is structured to fit within a 1-week sprint based on estimated developer capacity, ensuring that authentication is completed before campaign creation begins. Buffers allow for debugging and minor adjustments without delaying subsequent milestones.
 
 
 
