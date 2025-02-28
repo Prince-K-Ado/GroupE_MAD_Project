@@ -27,8 +27,8 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     content = db.Column(db.String(140), nullable=False)
     #Timestamp for when the post was created and media was uploaded
-    media_file = db.Column(db.String(255), nullable=True)
-    created = db.Column(db.DateTime, index=True, nullable=False, default=datetime.utcnow)
+    media_filename = db.Column(db.String(255), nullable=True)
+    timestamp = db.Column(db.DateTime, index=True, nullable=False, default=datetime.utcnow)
 
     def __repr__(self):
         return f"<Post {self.id} by user {self.user_id}>"

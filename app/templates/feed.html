@@ -1,17 +1,37 @@
 {% extends "base.html" %}
 {% block title %}Feed{% endblock %}
 {% block content %}
-  <h2>Your Feed</h2>
-  <p>Welcome! Post your campaign by uploading a picture or video.</p>
-  <form method="POST" action="{{ url_for('main.feed') }}" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="content">Post Content:</label>
-        <textarea name="content" id="content" class="form-control" rows="3"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="media">Upload Media (Image or Video):</label>
-        <input type="file" name="media" id="media" class="form-control-file">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit Post</button>
-  </form>
+<h2>Your Feed</h2>
+<p>Welcome! Post your campaign by uploading a picture or video.</p>
+<form method="POST" action="{{ url_for('main.feed') }}" enctype="multipart/form-data">
+  <div class="form-group">
+      <label for="content">Post Content:</label>
+      <textarea name="content" id="content" class="form-control" rows="3" placeholder="Enter your post details here"></textarea>
+  </div>
+  <div class="form-group">
+      <label for="media">Upload Media (Image or Video):</label>
+      <input type="file" name="media" id="media" class="form-control-file">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit Post</button>
+</form>
+
+<hr>
+
+<!-- Display all posts -->
+<h3>All Posts</h3>
+{% if posts %}
+    {% for post in posts %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <p class="card-text">{{ post.content }}</p>
+                {% if post.media_filename %}
+                    <p>Media: {{ post.media_filename }}</p>
+                {% endif %}
+                <small class="text-muted">Posted on: {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No posts available.</p>
+{% endif %}
 {% endblock %}

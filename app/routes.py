@@ -68,18 +68,21 @@ def feed():
         # For demo purposes, handle media file upload (picture or video)
         media = request.files.get('media')
         content = request.form.get('content')
-        if media:
+        # Check if media file was uploaded
+        if media and media.filename.strip():
             # Add file type, size validations here and store the file as needed.
             filename = media.filename
             flash('Media uploaded successfully!', 'success')
         else:
             filename = None
             flash('No file selected.', 'warning')
-        new_post = Post(user_id=session['user_id'], content=content, media=filename)
+        new_post = Post(user_id=session['user_id'], content=content, media_filename=filename)
         db.session.add(new_post)
         db.session.commit()
         flash('Post created successfully!', 'success')
-    return render_template('feed.html')
+        return redirect(url_for('main.feed'))
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('feed.html', posts=posts)
 
 @main.route('/logout')
 def logout():
