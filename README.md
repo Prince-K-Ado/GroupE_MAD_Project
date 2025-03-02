@@ -80,6 +80,12 @@ Activate the virtual environment:
 source venv/bin/activate
 ```
 
+## Install the Application dependencies from the requirements.txt file
+
+```bash
+pip install -r requirements.txt
+```
+
 ## Running the Application
 
 ### Set Environment Variables
