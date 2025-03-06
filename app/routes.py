@@ -1,7 +1,9 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session, flash
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash, current_app
 from app import db
 from app.models import User, Post
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
+import os
 
 main = Blueprint('main', __name__)
 
@@ -71,7 +73,9 @@ def feed():
         # Check if media file was uploaded
         if media and media.filename.strip():
             # Add file type, size validations here and store the file as needed.
-            filename = media.filename
+            filename = secure_filename(media.filename)
+            upload_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+            media.save(upload_path)
             flash('Media uploaded successfully!', 'success')
         else:
             filename = None
@@ -81,6 +85,7 @@ def feed():
         db.session.commit()
         flash('Post created successfully!', 'success')
         return redirect(url_for('main.feed'))
+    # Retrieve all posts from the database
     posts = Post.query.order_by(Post.timestamp.desc()).all()
     return render_template('feed.html', posts=posts)
 

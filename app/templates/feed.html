@@ -25,7 +25,9 @@
             <div class="card-body">
                 <p class="card-text">{{ post.content }}</p>
                 {% if post.media_filename %}
-                    <p>Media: {{ post.media_filename }}</p>
+                    <!-- Display media -->
+                    <img src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" class="img-fluid" alt="Media">
+                    <br>
                 {% endif %}
                 <small class="text-muted">Posted on: {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small>
             </div>
