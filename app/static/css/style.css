@@ -1,12 +1,37 @@
 .jumbotron {
     background-color: #f8f9fa;
-    color: #fff;
+    color: black;
     padding: 100px 25px;
 }
 
-.navbar-brand {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+.navbar .navbar-brand .container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
     text-align: center;
 }
+
+.navbar {
+    display: flex;
+    justify-content: center;
+}
+
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #f5f7fa;
+    color: #333;
+  }
+  
+  /* Style for a form container that blends with the background */
+  .form-container {
+    background-color: rgba(255, 255, 255, 0.9); /* semi-transparent white */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
