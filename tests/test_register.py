@@ -31,7 +31,7 @@ def client():
     yield client
     
     session.remove()
-    # transaction.rollback()
+    transaction.rollback()
     # connection.close()
     # db.drop_all()
     # ctx.pop()

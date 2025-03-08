@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
 {% block content %}
+<div class="form-container">
   <h2>Login</h2>
   <form method="POST" action="{{ url_for('main.login') }}">
     <div class="form-group">
@@ -13,4 +14,5 @@
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
   </form>
+</div>
 {% endblock %}

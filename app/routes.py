@@ -94,3 +94,96 @@ def logout():
     session.pop('user_id', None)
     flash('You have been logged out.', 'info')
     return redirect(url_for('main.login'))
+
+@main.route('/profile', methods=['GET', 'POST'])
+def profile():
+    if 'user_id' not in session:
+        flash('Please log in to access your profile.', 'warning')
+        return redirect(url_for('main.login'))
+    
+    user = User.query.get_or_404(session['user_id'])
+    return render_template('profile.html', user=user)
+
+
+# Delete a post
+@main.route('/post/<int:post_id>/delete', methods=['POST'])
+def delete_post(post_id):
+    # Ensure the user is logged in
+    if 'user_id' not in session:
+        flash('You must be logged in to delete posts.', 'warning')
+        return redirect(url_for('main.login'))
+    
+    # Fetch the post; return 404 if not found
+    post = Post.query.get_or_404(post_id)
+    
+    # Only allow deletion if the logged-in user is the owner of the post
+    if post.user_id != session['user_id']:
+        flash("You cannot delete someone else's post.", 'danger')
+        return redirect(url_for('main.feed'))
+    
+    db.session.delete(post)
+    db.session.commit()
+    flash('Post deleted successfully!', 'success')
+    return redirect(url_for('main.feed'))
+
+
+# Delete an account
+@main.route('/delete_account', methods=['POST'])
+def delete_account():
+    # Ensure the user is logged in
+    if 'user_id' not in session:
+        flash('You must be logged in to delete your account.', 'warning')
+        return redirect(url_for('main.login'))
+    
+    user = User.query.get_or_404(session['user_id'])
+    
+    # Optionally, delete all posts for that user:
+    for post in user.posts:
+        db.session.delete(post)
+    
+    db.session.delete(user)
+    db.session.commit()
+    
+    # Log out the user after deletion
+    session.pop('user_id', None)
+    flash('Your account has been deleted.', 'success')
+    return redirect(url_for('main.welcome'))
+
+# Edit a post
+@main.route('/edit_post/<int:post_id>', methods=['GET', 'POST'])
+def edit_post(post_id):
+    # Ensure the user is logged in
+    if 'user_id' not in session:
+        flash('Please log in to edit posts.', 'warning')
+        return redirect(url_for('main.login'))
+    
+    post = Post.query.get_or_404(post_id)
+    
+    # Only allow the owner to edit the post
+    if post.user_id != session['user_id']:
+        flash("You are not allowed to edit this post.", 'danger')
+        return redirect(url_for('main.feed'))
+    
+    if request.method == 'POST':
+        if 'delete' in request.form:
+            # User clicked the delete button in the edit form
+            db.session.delete(post)
+            db.session.commit()
+            flash("Post deleted successfully.", "success")
+            return redirect(url_for('main.feed'))
+        else:
+            # Update the post content and optionally update media
+            post.content = request.form.get('content')
+            media = request.files.get('media')
+            if media and media.filename.strip():
+                from werkzeug.utils import secure_filename
+                filename = secure_filename(media.filename)
+                upload_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+                media.save(upload_path)
+                post.media_filename = filename
+            db.session.commit()
+            flash("Post updated successfully.", "success")
+            return redirect(url_for('main.feed'))
+    
+    # Render the edit form with current post data
+    return render_template('edit_post.html', post=post)

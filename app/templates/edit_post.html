@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Edit Post{% endblock %}
+{% block content %}
+<div class="form-container">
+  <h2>Edit Post</h2>
+  <form method="POST" action="{{ url_for('main.edit_post', post_id=post.id) }}" enctype="multipart/form-data">
+      <div class="form-group">
+          <label for="content">Post Content:</label>
+          <textarea name="content" id="content" class="form-control" rows="3">{{ post.content }}</textarea>
+      </div>
+      <div class="form-group">
+          <label for="media">Upload New Media (optional):</label>
+          <input type="file" name="media" id="media" class="form-control-file">
+      </div>
+      <button type="submit" class="btn btn-success">Save Changes</button>
+      <button type="submit" name="delete" value="delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?');">Delete Post</button>
+  </form>
+</div>
+{% endblock %}
