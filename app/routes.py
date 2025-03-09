@@ -52,7 +52,7 @@ def register():
             flash('User already exists.', 'warning')
             return render_template('register.html')
         
-        new_user = User(email=email, password=generate_password_hash(password))
+        new_user = User(email=email, password=generate_password_hash(password, method='pbkdf2:sha256'))
         db.session.add(new_user)
         db.session.commit()  # This must be within an active app context
         flash('Registration successful! Please log in.', 'success')
