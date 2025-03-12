@@ -8,10 +8,10 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'your-secret-key'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')  or 'sqlite:///'+ os.path.join(basedir, 'MiniGoFundMe.db') # or f'postgresql://kacatcher:{password}@127.0.0.1:5432/minigofundme' 
     
-    SQLALCHEMY_BINDS = {
-        # 'minigofundme': f'postgresql://kacatcher:{password}@127.0.0.1:5432/minigofundme',
-        'sqlite': 'sqlite:///' + os.path.join(basedir, 'MiniGoFundMe.db')
-    }
+    # SQLALCHEMY_BINDS = {
+    #     # 'minigofundme': f'postgresql://kacatcher:{password}@127.0.0.1:5432/minigofundme',
+    #     'sqlite': 'sqlite:///' + os.path.join(basedir, 'MiniGoFundMe.db')
+    # }
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 

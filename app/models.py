@@ -3,7 +3,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model):
-    __tablename__ = 'Users'
+    __tablename__ = 'users'
     # __bind_key__ = 'minigofundme'
     # __bind_key__ = 'sqlite'
     id = db.Column(db.Integer, primary_key=True)
@@ -28,7 +28,7 @@ class Post(db.Model):
     # __bind_key__ = 'sqlite'
     id = db.Column(db.Integer, primary_key=True)
     #Link to the user who created the post
-    user_id = db.Column(db.Integer, db.ForeignKey('Users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     content = db.Column(db.String(140), nullable=False)
     #Timestamp for when the post was created and media was uploaded
     media_filename = db.Column(db.String(255), nullable=True)

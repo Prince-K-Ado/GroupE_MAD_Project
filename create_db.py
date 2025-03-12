@@ -4,13 +4,15 @@ from sqlalchemy import inspect
 # Create the database tables
 with app.app_context():
     db.create_all()
-
-    binds = app.config.get("SQLALCHEMY_BINDS", {})
-    for bind_key, uri in binds.items():
-        engine = db.engines[bind_key]
-        db.metadata.create_all(engine)
-
     print("Database tables created successfully!")
+
+    # Additional code to check if tables exist and create them if they don't maybe for PostgreSQL
+    # binds = app.config.get("SQLALCHEMY_BINDS", {})
+    # for bind_key, uri in binds.items():
+    #     engine = db.engines[bind_key]
+    #     db.metadata.create_all(engine)
+
+    
     
     # default_engine = db.engine
     # default_inspector = inspect(default_engine)
