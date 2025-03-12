@@ -2,6 +2,8 @@
 
 *Registration page, Login page and Creating a post*
 
+At the conclusion of Milestone 1, the deliverables include a fully functional login page with secure authentication and session management, and a listing creation page that is fully integrated with the user system.
+
 
 
 **Agile Methods Used**
