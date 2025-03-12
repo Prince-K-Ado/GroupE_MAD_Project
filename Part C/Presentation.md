@@ -1,9 +1,28 @@
+**Milestone 1**
+
+*Registration page, Login page and Creating a post*
+
+At the conclusion of Milestone 1, the deliverables include a fully functional login page with secure authentication and session management, and a listing creation page that is fully integrated with the user system.
+
+
+
+**Agile Methods Used**
+
+
+
+
+
+
+
 **How code fulfills user stories**
 
 _As a user affected by a natural disaster, I want to be able to login and have my own account that saves my posts and preferences._
 
 * The app includes registration and login for user accounts along with two test cases that verify login functionality. One that tests a successful login and one that tests a login failure.
 * This is routed via the */login* and */register* routes and models user accounts via _set_password_ and _check_password_ routes along with a database and Flask's _session_ to maintain their session.
+* 
+![successful login](https://github.com/user-attachments/assets/56cc30f6-7afa-428d-a998-e0fd86a742f2)
+![successful login flash](https://github.com/user-attachments/assets/d36c5536-121e-4d69-9104-8243aec4aab4)
 
 _As a user affected by a natural disaster, I want to post a fundraising campaign with a title, description and percentage towards financial goal._
 
