@@ -40,7 +40,7 @@ def client():
 
 def test_login_success(client):
     # Create a test user
-    user = User(email='test@example.com', password=generate_password_hash('password'))
+    user = User(email='test@example.com', password=generate_password_hash('password', method='pbkdf2:sha256'))
     db.session.add(user)
     db.session.commit()
         
@@ -55,7 +55,7 @@ def test_login_success(client):
 
 def test_login_failure(client):
     # Create a test user
-    user = User(email='test@example.com', password=generate_password_hash('password'))
+    user = User(email='test@example.com', password=generate_password_hash('password', method='pbkdf2:sha256'))
     db.session.add(user)
     db.session.commit()
         
