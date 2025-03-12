@@ -32,10 +32,19 @@
             <div class="card-body">
                 <p class="card-text">{{ post.content }}</p>
                 {% if post.media_filename %}
-                    <!-- Display media -->
-                    <img src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" class="img-fluid" alt="Media">
-                    <br>
+                    {% set lower = post.media_filename|lower %}
+                    {% if lower.endswith('.mp4') or lower.endswith('.webm') or lower.endswith('.ogg') %}
+                        <!-- Display video -->
+                        <video controls>
+                            <source src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    {% else %}
+                        <!-- Display media -->
+                        <img src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" class="img-fluid" alt="Media">
+                    {% endif %}
                 {% endif %}
+                <br>
                 <small class="text-muted">Posted on: {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small>
                 {% if session.get('user_id') == post.user_id %}
                     <div class="container justify-content-center">
