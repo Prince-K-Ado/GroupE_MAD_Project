@@ -1,3 +1,16 @@
+**Milestone 1**
+
+*Registration page, Login page and Creating a post*
+
+
+
+**Agile Methods Used**
+
+
+
+
+
+
 **How code fulfills user stories**
 
 _As a user affected by a natural disaster, I want to be able to login and have my own account that saves my posts and preferences._
