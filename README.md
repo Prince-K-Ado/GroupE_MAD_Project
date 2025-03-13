@@ -114,15 +114,7 @@ export FLASK_ENV=development
 python .\create_db.py
 ```
 
-### Run the Flask App
 
-In the terminal (with your virtual environment activated and environment variables set), run:
-
-```bash
-flask run
-```
-
-Your application will be available at [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
 ## Running the Tests
 
@@ -136,7 +128,9 @@ From the project root, run:
 pytest
 ```
 
-#### Note: The test will drop any table that is create during the process. Past users will drop from the database because the tables, user or post do not exist
+This command will execute all tests located in the `tests/` directory.
+
+These instructions should guide you through setting up your environment, running your Flask application, and executing your tests. If you encounter any issues, verify that you're in the correct project directory and that your virtual environment is activated.
 
 #### Reset and Rebuild the tables in the database by running the following or add a new user to the register form from the app
 
@@ -144,9 +138,12 @@ pytest
 python .\create_db.py
 ```
 
+### Run the Flask App
 
+In the terminal (with your virtual environment activated and environment variables set), run:
 
+```bash
+flask run
+```
 
-This command will execute all tests located in the `tests/` directory.
-
-These instructions should guide you through setting up your environment, running your Flask application, and executing your tests. If you encounter any issues, verify that you're in the correct project directory and that your virtual environment is activated.
+Your application will be available at [http://127.0.0.1:5000](http://127.0.0.1:5000).

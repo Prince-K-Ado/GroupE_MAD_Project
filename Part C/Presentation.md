@@ -29,7 +29,7 @@ _As a user affected by a natural disaster, I want to post a fundraising campaign
 _As a user affected by a natural disaster, I want to upload images to further showcase my struggle and trustworthiness_
 
 * The _/feed_ route allows users to create posts but still requires a user to be logged in via an if statement that flashes a warning to log in first. 
-* The posts are associated with the user as per the _new_post = Post(user_id=session['user_id']_ line. 
+* The posts are associated with the user as per the _new_post = Post(user_id=session['user_id'])_ line. 
 * Media files can be uploaded and stored showcasing the user's campaign and flashes success or warnings if no file is selected.
 
 _As a user affected by a natural disaster, I wish to provide an update to my posting as situations change and I can show donors how their donations have helped_
