@@ -1,5 +1,5 @@
 from app import app, db
-from sqlalchemy import inspect
+#from sqlalchemy import inspect
 
 # Create the database tables
 with app.app_context():
