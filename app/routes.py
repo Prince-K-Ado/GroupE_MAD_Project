@@ -1,3 +1,4 @@
+import random
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash, current_app
 from app import db
 from app.models import User, Post
@@ -43,21 +44,40 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
+        captcha_response = request.form.get('captcha')
+
+        # Validate the recaptcha response
+        if not captcha_response or int(captcha_response) != session.get('captcha_result'):
+            flash('Invalid reCAPTCHA response. Please try again.', 'danger')
+            # Reload the recaptcha challenge
+
+            a = random.randint(1, 10)
+            b = random.randint(1, 10)
+            session['captcha_result'] = a + b
+            session['captcha_question'] = f"What is {a} + {b} = ?"
+            return render_template('register.html', captcha_question=session['captcha_question'])
         
         if password != confirm_password:
             flash('Passwords do not match.', 'danger')
-            return render_template('register.html')
+            return render_template('register.html', captcha_question=session['captcha_question'])
         
         if User.query.filter_by(email=email).first():
             flash('User already exists.', 'warning')
-            return render_template('register.html')
+            return render_template('register.html', captcha_question=session['captcha_question'])
         
         new_user = User(email=email, password=generate_password_hash(password, method='pbkdf2:sha256'))
         db.session.add(new_user)
         db.session.commit()  # This must be within an active app context
         flash('Registration successful! Please log in.', 'success')
-        return redirect(url_for('main.login'))    
-    return render_template('register.html')
+        return redirect(url_for('main.login'))
+    else:
+        # On get request, generate a new captcha question
+        a = random.randint(1, 10)
+        b = random.randint(1, 10)
+        session['captcha_result'] = a + b    
+        session['captcha_question'] = f"What is {a} + {b} = ?"
+        return render_template('register.html', captcha_question=session['captcha_question'])    
+   
 
 @main.route('/feed', methods=['GET', 'POST'])
 def feed():

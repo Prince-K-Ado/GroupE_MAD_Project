@@ -14,8 +14,8 @@ class Config:
     # }
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
     SQLALCHEMY_ECHO = True
+
 
     # Uploading files
     UPLOAD_FOLDER = os.path.join(basedir, 'app', 'static' , 'uploads')
