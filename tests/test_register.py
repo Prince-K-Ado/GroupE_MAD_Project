@@ -30,6 +30,7 @@ def client():
     
     yield client
     
+    
     session.remove()
     transaction.rollback()
     # connection.close()
@@ -37,12 +38,17 @@ def client():
     # ctx.pop()
 
 def test_register_success(client):
-    response = client.post('/register', data={
+    # Set the captcha result to 8.
+    with client.session_transaction() as sess:
+        sess['captcha_result'] = 8
+        sess['captcha_question'] = "What is 3 + 5?"
+    data = {
         'email': 'newuser@example.com',
         'password': 'password123',
-        'confirm_password': 'password123'
-    }, follow_redirects=True)
-    
+        'confirm_password': 'password123',
+        'captcha': '8' # for 3 + 5
+    }
+    response = client.post('/register', data=data, follow_redirects=True)
     # Check that the registration flash message is in the response.
     assert b'Registration successful!' in response.data
     
@@ -51,11 +57,19 @@ def test_register_success(client):
     assert user is not None
 
 def test_register_password_mismatch(client):
-    response = client.post('/register', data={
+
+    # Set the captcha result to 8.
+    with client.session_transaction() as sess:
+        sess['captcha_result'] = 8
+        sess['captcha_question'] = "What is 3 + 5?"
+    # Attempt to register with mismatched passwords.
+    data={
         'email': 'newuser@example.com',
         'password': 'password123',
-        'confirm_password': 'differentpassword'
-    }, follow_redirects=True)
+        'confirm_password': 'differentpassword',
+        'captcha': '8' # for 3 + 5
+    }
+    response = client.post('/register', data=data, follow_redirects=True)
     
     # Check that the appropriate error message is returned.
     assert b'Passwords do not match' in response.data
