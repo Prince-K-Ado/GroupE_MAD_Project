@@ -207,3 +207,42 @@ def edit_post(post_id):
     
     # Render the edit form with current post data
     return render_template('edit_post.html', post=post)
+
+@main.route('/update_profile', methods=['POST'])
+def update_profile():
+    user_id = session.get('user_id')
+    if not user_id:
+        flash("You must be logged in to update your profile.", "warning")
+        return redirect(url_for('auth.login'))  # Or however your login route is set up
+
+    user = User.query.get(user_id)
+    if not user:
+        flash("User not found.", "danger")
+        return redirect(url_for('main.profile'))
+
+    # Handle uploaded profile photo
+    profile_photo = request.files.get('profile_photo')
+    if profile_photo and profile_photo.filename != '':
+        filename = secure_filename(profile_photo.filename)
+        upload_folder = os.path.join(current_app.root_path, 'static', 'uploads')
+        os.makedirs(upload_folder, exist_ok=True)  # Make sure the folder exists
+        photo_path = os.path.join(upload_folder, filename)
+        profile_photo.save(photo_path)
+        user.profile_photo_url = url_for('static', filename=f'uploads/{filename}')
+
+    # Update text fields
+    user.about_me = request.form.get('about_me', user.about_me).strip() or user.about_me
+    user.twitter_handle = request.form.get('twitter_handle', user.twitter_handle).strip() or user.twitter_handle
+    user.instagram_handle = request.form.get('instagram_handle', user.instagram_handle).strip() or user.instagram_handle
+
+
+    # Save changes
+    try:
+        db.session.commit()
+        flash("Profile updated successfully!", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash("An error occurred while updating your profile.", "danger")
+        print("Update error:", e)
+
+    return redirect(url_for('main.profile'))

@@ -11,6 +11,10 @@ class User(db.Model):
     password = db.Column(db.String(128), nullable=False)
     # Additional fields can be added here, e.g., name, profile image, etc.
     # A one-to-many relationship can be established with another model, e.g., a user can have many posts
+    profile_photo_url = db.Column(db.String(200))
+    about_me = db.Column(db.Text)
+    twitter_handle = db.Column(db.String(80))
+    instagram_handle = db.Column(db.String(80))
     posts = db.relationship('Post', backref='author', lazy=True)
     
     def set_password(self, password):
