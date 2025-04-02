@@ -50,9 +50,19 @@
                 <small class="text-muted">Posted on: {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S')}}</small>
                 {% if session.get('user_id') == post.user_id %}
                     <div class="container justify-content-center">
-                    <form action="{{ url_for('main.edit_post', post_id=post.id, user_id=session['user_id']) }}" method="GET">
-                        <button type="submit" class="btn btn-primary">Edit Post</button>
-                    </form>
+                        <div class="btn-group" role="group">
+                            <form action="{{ url_for('main.edit_post', post_id=post.id, user_id=session['user_id']) }}" method="GET">
+                                <button type="submit" class="btn btn-primary">Edit Post</button>
+                            </form>
+                            
+                            {% if not post.is_successful %}
+                            <form action="{{ url_for('main.mark_as_successful', post_id=post.id) }}" method="POST" class="ml-2">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-trophy"></i> Mark as Successful
+                                </button>
+                            </form>
+                            {% endif %}
+                        </div>
                     </div>
                 {% endif %}
             </div>
