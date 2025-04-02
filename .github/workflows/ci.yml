@@ -25,6 +25,10 @@ jobs:
         pip install -r requirements.txt
         pip install pytest
 
+    - name: Run migrations
+      run: |
+        flask db upgrade
+
     - name: Run tests
       run: |
         pytest --maxfail=1 --disable-warnings --junitxml=results.xml
