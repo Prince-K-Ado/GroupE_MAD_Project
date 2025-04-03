@@ -78,6 +78,35 @@ def register():
         session['captcha_question'] = f"What is {a} + {b} = ?"
         return render_template('register.html', captcha_question=session['captcha_question'])    
    
+@main.route('/successful_campaigns')
+def successful_campaigns():
+    if 'user_id' not in session:
+        flash('Please log in to view successful campaigns.', 'warning')
+        return redirect(url_for('main.login'))
+    
+    # Get all successful posts, ordered by timestamp
+    successful_posts = Post.query.filter_by(is_successful=True).order_by(Post.timestamp.desc()).all()
+    return render_template('successful_campaigns.html', posts=successful_posts)
+
+@main.route('/mark_as_successful/<int:post_id>', methods=['POST'])
+def mark_as_successful(post_id):
+    if 'user_id' not in session:
+        flash('Please log in to perform this action.', 'warning')
+        return redirect(url_for('main.login'))
+    
+    post = Post.query.get_or_404(post_id)
+    
+    # Verify post belongs to current user
+    if post.user_id != session['user_id']:
+        flash("You can't mark someone else's post as successful.", 'danger')
+        return redirect(url_for('main.feed'))
+    
+    # Toggle the successful status
+    post.is_successful = True
+    db.session.commit()
+    
+    flash('Post marked as successful campaign!', 'success')
+    return redirect(url_for('main.feed'))
 
 @main.route('/feed', methods=['GET', 'POST'])
 def feed():

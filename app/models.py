@@ -37,6 +37,7 @@ class Post(db.Model):
     #Timestamp for when the post was created and media was uploaded
     media_filename = db.Column(db.String(255), nullable=True)
     timestamp = db.Column(db.DateTime, index=True, nullable=False, default=datetime.utcnow)
+    is_successful = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return f"<Post {self.id} by User {self.user_id}>"
