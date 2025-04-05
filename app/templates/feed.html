@@ -24,6 +24,26 @@
 
 <hr>
 
+<!-- Modal for Instructions -->
+<div class="modal fade" id="instructionModal" tabindex="-1" role="dialog" aria-labelledby="instructionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="instructionModalLabel">Important Reminder</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Please ensure that the information you are providing is truthful and accurate. Mutual aid relies on honesty and transparency to help those who are truly in need.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="submitForm()">Understood</button>
+            </div>
+        </div>
+    </div>
+
+
 <!-- Display all posts -->
 <h3>All Posts</h3>
 {% if posts %}
@@ -71,5 +91,20 @@
 {% else %}
     <p>No posts available.</p>
 {% endif %}
+
+<!-- jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+function showInstruction() {
+    $('#instructionModal').modal('show');
+    return false; // Prevent form submission until the modal is acknowledged
+}
+
+function submitForm() {
+    document.querySelector("form").submit();
+}
+</script>
 
 {% endblock %}
