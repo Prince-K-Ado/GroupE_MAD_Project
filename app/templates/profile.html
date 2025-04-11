@@ -11,4 +11,42 @@
     </form>
   </div>
 </div>
+
+<h3>My Posts</h3>
+{% if posts %}
+  {% for post in posts %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <p class="card-text">{{ post.content }}</p>
+        {% if post.media_filename %}
+          {% set lower = post.media_filename|lower %}
+          {% if lower.endswith('.mp4') or lower.endswith('.webm') or lower.endswith('.ogg') %}
+            <!-- Display video -->
+            <video controls>
+              <source src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          {% else %}
+            <!-- Display image -->
+            <img src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" alt="Post Media" class="img-fluid">
+          {% endif %}
+        {% endif %}
+        <p><strong>Category:</strong> {{ post.category }}</p>
+        <p><strong>Timestamp:</strong> {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+        {% if post.status == 'Pending' %}
+          <div class="alert alert-info">
+            The campaign you have submitted is under review by our team. Please allow 24 hrs for approval.
+          </div>
+        {% endif %}
+        <!-- Optionally add an edit button -->
+        {% if session.get('user_id') == post.user_id %}
+          <a href="{{ url_for('main.edit_post', post_id=post.id) }}" class="btn btn-primary btn-sm">Edit</a>
+        {% endif %}
+        <p class="card-text"><small class="text-muted">Posted on {{ post.timestamp }}</small></p>
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+  <p>No posts available.</p>
+{% endif %}
 {% endblock %}

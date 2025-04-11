@@ -34,15 +34,16 @@ def client():
     # Teardown: rollback changes, close session and connection, drop tables, and pop context.
     session.remove()
     transaction.rollback()
-    # connection.close()
-    # db.drop_all()
+    #connection.close()
+    #db.drop_all()
     # ctx.pop()
 
 def test_login_success(client):
     # Create a test user
-    user = User(email='test@example.com', password=generate_password_hash('password', method='pbkdf2:sha256'))
-    db.session.add(user)
-    db.session.commit()
+    if not User.query.filter_by(email='test@example.com').first():
+        user = User(email='test@example.com', password=generate_password_hash('password', method='pbkdf2:sha256'))
+        db.session.add(user)
+        db.session.commit()
         
     # Test login with correct credentials
     response = client.post('/login', data={
@@ -55,9 +56,10 @@ def test_login_success(client):
 
 def test_login_failure(client):
     # Create a test user
-    user = User(email='test@example.com', password=generate_password_hash('password', method='pbkdf2:sha256'))
-    db.session.add(user)
-    db.session.commit()
+    if not User.query.filter_by(email='test@example.com').first():
+        user = User(email='test@example.com', password=generate_password_hash('password', method='pbkdf2:sha256'))
+        db.session.add(user)
+        db.session.commit()
         
     # Test login with incorrect password
     response = client.post('/login', data={
@@ -68,7 +70,10 @@ def test_login_failure(client):
     # Check that the flash message for invalid credentials appears
     assert b'Invalid credentials' in response.data
 
-
+# Drop all tables after tests
+with app.app_context():
+    db.session.remove()
+    #db.drop_all()
 
 
 

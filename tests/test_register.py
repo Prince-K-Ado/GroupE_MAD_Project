@@ -33,7 +33,7 @@ def client():
     
     session.remove()
     transaction.rollback()
-    # connection.close()
+    connection.close()
     # db.drop_all()
     # ctx.pop()
 
@@ -74,6 +74,11 @@ def test_register_password_mismatch(client):
     # Check that the appropriate error message is returned.
     assert b'Passwords do not match' in response.data
 
+
+# Drop all tables after tests
+with app.app_context():
+    db.session.remove()
+    #db.drop_all()
 # import sys
 # import os
 # sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))

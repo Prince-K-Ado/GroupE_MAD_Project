@@ -90,6 +90,7 @@ def feed():
         # For demo purposes, handle media file upload (picture or video)
         media = request.files.get('media')
         content = request.form.get('content')
+        category = request.form.get('category') # Category of the post (e.g., "Donations", "Food", etc.)
         # Check if media file was uploaded
         if media and media.filename.strip():
             # Add file type, size validations here and store the file as needed.
@@ -100,14 +101,22 @@ def feed():
         else:
             filename = None
             flash('No file selected.', 'warning')
-        new_post = Post(user_id=session['user_id'], content=content, media_filename=filename)
+        new_post = Post(
+            user_id=session['user_id'], 
+            content=content, 
+            media_filename=filename,
+            status='Pending',  # Default status for new posts
+            category=category)  # Store the category of the post)
+        
         db.session.add(new_post)
         db.session.commit()
-        flash('Post created successfully!', 'success')
-        return redirect(url_for('main.feed'))
+        flash("The campaign you have submitted is under review. Please allow 24 hrs for approval.", "info")
+        return redirect(url_for('main.profile'))
     # Retrieve all posts from the database
-    posts = Post.query.order_by(Post.timestamp.desc()).all()
-    return render_template('feed.html', posts=posts)
+    #posts = Post.query.order_by(Post.timestamp.desc()).all()
+    # For Get requests, only show posts that are approved
+    approved_posts = Post.query.filter_by(status='Approved').order_by(Post.timestamp.desc()).all()
+    return render_template('feed.html', posts=approved_posts)
 
 @main.route('/logout')
 def logout():
@@ -122,7 +131,9 @@ def profile():
         return redirect(url_for('main.login'))
     
     user = User.query.get_or_404(session['user_id'])
-    return render_template('profile.html', user=user)
+    # Get all posts by the logged-in user
+    posts = Post.query.filter_by(user_id=user.id).order_by(Post.timestamp.desc()).all()
+    return render_template('profile.html', user=user, posts=posts)
 
 
 # Delete a post
