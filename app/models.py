@@ -9,6 +9,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)  # Flag to indicate if the user is an admin
     # Additional fields can be added here, e.g., name, profile image, etc.
     # A one-to-many relationship can be established with another model, e.g., a user can have many posts
     posts = db.relationship('Post', backref='author', lazy=True)
