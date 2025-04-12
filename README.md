@@ -108,13 +108,6 @@ export FLASK_APP=app/__init__.py
 export FLASK_ENV=development
 ```
 
-### Build the Database with Table (User, Post)
-
-```bash
-python .\create_db.py
-```
-
-
 
 ## Running the Tests
 
