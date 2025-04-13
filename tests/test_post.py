@@ -91,7 +91,13 @@ def test_feed_shows_only_approved(client):
     # Check that the flash message "Login successful!" is present in the response
     assert b'Login successful!' in response.data
 
-
+    # Query the database for post and set status to 'Pending'
+    with app.app_context():
+        from app.models import Post
+        post = Post.query.all()
+        for p in post:
+            p.status = 'Pending'
+        db.session.commit()
     # Access the feed route, which should show only approved posts.
     # Our test post will be under review (pending), so none should be shown.
     feed_response = client.get('/feed', follow_redirects=True)
