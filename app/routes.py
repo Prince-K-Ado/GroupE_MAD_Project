@@ -29,6 +29,7 @@ def login():
         # Check if user exists and password is correct
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
+            session['is_admin'] = user.is_admin
             flash('Login successful!', 'success')
             return redirect(url_for('main.feed'))
         else:
@@ -218,3 +219,36 @@ def edit_post(post_id):
     
     # Render the edit form with current post data
     return render_template('edit_post.html', post=post)
+
+# Add this new route to routes.py
+@main.route('/admin/review', methods=['GET', 'POST'])
+def admin_review():
+    # Check if user is logged in and is admin
+    if 'user_id' not in session:
+        flash('Please log in to access this page.', 'warning')
+        return redirect(url_for('main.login'))
+    
+    user = User.query.get_or_404(session['user_id'])
+    if not user.is_admin:
+        flash('You do not have permission to access this page.', 'danger')
+        return redirect(url_for('main.feed'))
+    
+    if request.method == 'POST':
+        # Handle post approval/rejection
+        post_id = request.form.get('post_id')
+        action = request.form.get('action')  # 'approve' or 'reject'
+        
+        post = Post.query.get_or_404(post_id)
+        if action == 'approve':
+            post.status = 'Approved'
+            flash('Post approved!', 'success')
+        elif action == 'reject':
+            post.status = 'Rejected'
+            flash('Post rejected.', 'info')
+        
+        db.session.commit()
+        return redirect(url_for('main.admin_review'))
+    
+    # Get all pending posts for admin review
+    pending_posts = Post.query.filter_by(status='Pending').order_by(Post.timestamp.desc()).all()
+    return render_template('admin_review.html', posts=pending_posts)
