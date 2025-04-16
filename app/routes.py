@@ -1,7 +1,8 @@
 import random
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash, current_app
 from app import db
-from app.models import User, Post
+from app.models import User, Post, Subscription, Notification, Category
+from sqlalchemy import func
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import os
@@ -220,10 +221,11 @@ def edit_post(post_id):
     # Render the edit form with current post data
     return render_template('edit_post.html', post=post)
 
-# Add this new route to routes.py
+# Admin page for reviewing posts
+# This route is only accessible to admin users
 @main.route('/admin/review', methods=['GET', 'POST'])
 def admin_review():
-    # Check if user is logged in and is admin
+    # Check if user is logged in and is an admin.
     if 'user_id' not in session:
         flash('Please log in to access this page.', 'warning')
         return redirect(url_for('main.login'))
@@ -234,14 +236,33 @@ def admin_review():
         return redirect(url_for('main.feed'))
     
     if request.method == 'POST':
-        # Handle post approval/rejection
+        # Handle post approval/rejection.
         post_id = request.form.get('post_id')
-        action = request.form.get('action')  # 'approve' or 'reject'
-        
+        action = request.form.get('action')  # Expected values: 'approve' or 'reject'
         post = Post.query.get_or_404(post_id)
+        
         if action == 'approve':
             post.status = 'Approved'
             flash('Post approved!', 'success')
+            
+            # Get the Category object matching the post's category (case-insensitive)
+            cat_obj = Category.query.filter(func.lower(Category.name) == func.lower(post.category)).first()
+            
+            # If a matching Category is found, get subscriptions by category_id
+            if cat_obj:
+                subscriptions = Subscription.query.filter_by(category_id=cat_obj.id).all()
+            else:
+                subscriptions = []
+            
+            for subscription in subscriptions:
+                # Use a default value if post.category is None (shouldn't be, if enforced)
+                category_value = post.category or "General"
+                notification = Notification(
+                    user_id=subscription.user_id,
+                    post_id=post.id,
+                    message=f"A new post in category '{category_value}' has been approved."
+                )
+                db.session.add(notification)
         elif action == 'reject':
             post.status = 'Rejected'
             flash('Post rejected.', 'info')
@@ -249,6 +270,63 @@ def admin_review():
         db.session.commit()
         return redirect(url_for('main.admin_review'))
     
-    # Get all pending posts for admin review
+    # For GET, retrieve all pending posts for admin review.
     pending_posts = Post.query.filter_by(status='Pending').order_by(Post.timestamp.desc()).all()
     return render_template('admin_review.html', posts=pending_posts)
+
+@main.route('/notifications')
+def notifications():
+    if 'user_id' not in session:
+        flash('Please log in to see notifications.', 'warning')
+        return redirect(url_for('main.login'))
+    user_id = session['user_id']
+    notifications = Notification.query.filter_by(user_id=user_id, is_read=False).order_by(Notification.timestamp.desc()).all()
+    return render_template('notifications.html', notifications=notifications)
+
+@main.route('/post/<int:post_id>')
+def view_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('view_post.html', post=post)
+
+@main.route('/notification/read/<int:notif_id>')
+def read_notification(notif_id):
+    if 'user_id' not in session:
+        flash('Please log in to see notifications.', 'warning')
+        return redirect(url_for('main.login'))
+    notification = Notification.query.get_or_404(notif_id)
+    if notification.user_id != session['user_id']:
+        flash("You are not allowed to read this notification.", 'danger')
+        return redirect(url_for('main.notifications'))
+    notification.is_read = True
+    db.session.commit()
+    return redirect(url_for('main.feed', post_id=notification.post_id))
+
+@main.route('/preferences', methods=['GET', 'POST'])
+def preferences():
+    if 'user_id' not in session:
+        flash('Please log in to manage your preferences.', 'warning')
+        return redirect(url_for('main.login'))
+    user = User.query.get_or_404(session['user_id'])
+    # Retrieve available categories from the database
+    available_categories = Category.query.order_by(Category.name).all()
+    
+    from app.models import Subscription
+    if request.method == 'POST':
+        # Get list of category names selected by the user
+        selected_names = request.form.getlist('categories')
+        # Remove all existing subscriptions for the user
+        Subscription.query.filter_by(user_id=user.id).delete()
+        # Create new subscriptions for each selected category
+        for cat_name in selected_names:
+            category = Category.query.filter_by(name=cat_name).first()
+            if category:
+                sub = Subscription(user_id=user.id, category_id=category.id)
+                db.session.add(sub)
+        db.session.commit()
+        flash('Your subscription preferences have been updated.', 'success')
+        return redirect(url_for('main.profile'))
+    else:
+        # For GET, retrieve existing subscriptions as category IDs
+        current_subs = Subscription.query.filter_by(user_id=user.id).all()
+        current_category_ids = [sub.category_id for sub in current_subs]
+        return render_template('preferences.html', available_categories=available_categories, current_category_ids=current_category_ids)

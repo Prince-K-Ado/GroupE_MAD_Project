@@ -1,4 +1,4 @@
-from app import db
+from app import app, db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -40,6 +40,15 @@ class Post(db.Model):
     def __repr__(self):
         return f"<Post {self.id} by User {self.user_id}>"
     
+# Category model to categorize posts
+class Category(db.Model):
+    __tablename__ = 'category'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True, nullable=False)
+
+    def __repr__(self):
+        return f"<Category {self.name}>"
+    
 # Subscription model to track user subscriptions to posts
 class Subscription(db.Model):
     __tablename__ = 'subscription'
@@ -47,7 +56,38 @@ class Subscription(db.Model):
     # __bind_key__ = 'sqlite'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
-    category = db.Column(db.String(55), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)  # The category the user is subscribed to
     timestamp = db.Column(db.DateTime, index=True, nullable=False, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f"<Subscription {self.id} for User {self.user_id} on Post {self.post_id}>"
+# drop Subscription table if it exists
+# with app.app_context():
+#     Subscription.__table__.drop(db.engine)
+#     print("Subscription table dropped.")
+
+
+class Notification(db.Model):
+    __tablename__ = 'notification'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)  # The subscriber
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)    # The post triggering the notification
+    message = db.Column(db.String(255), nullable=True)
+    is_read = db.Column(db.Boolean, default=False, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
+    def __repr__(self):
+        return f"<Notification {self.id} for user {self.user_id}>"
+
+class AuditLog(db.Model):
+    __tablename__ = 'audit_log'
+    id = db.Column(db.Integer, primary_key=True)
+    admin_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    action = db.Column(db.String(20), nullable=False)  # e.g., "Approved", "Rejected"
+    message = db.Column(db.String(255))  # Optional custom message
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def __repr__(self):
+        return f"<AuditLog {self.id} for post {self.post_id}>"
 

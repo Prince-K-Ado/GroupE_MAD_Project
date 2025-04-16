@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Notifications{% endblock %}
+{% block content %}
+<div class="form-container">
+<h2>Your Notifications</h2>
+{% if notifications %}
+  <ul class="list-group">
+    {% for notification in notifications %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <!-- Clicking on the link will mark the notification as read and redirect to the post -->
+        <a href="{{ url_for('main.read_notification', notif_id=notification.id) }}">
+          {{ notification.message }}
+        </a>
+        <span class="badge badge-primary badge-pill">{{ notification.timestamp.strftime('%Y-%m-%d') }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% else %}
+  <p>You have no new notifications.</p>
+{% endif %}
+{% endblock %}

@@ -20,3 +20,4 @@ class Config:
     # Uploading files
     UPLOAD_FOLDER = os.path.join(basedir, 'app', 'static' , 'uploads')
     
+

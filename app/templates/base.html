@@ -5,6 +5,8 @@
   <title>{% block title %}Mutual Aid Database{% endblock %}</title>
   <!-- Bootstrap CSS via CDN -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome via CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
@@ -17,7 +19,7 @@
       </button>
       <div class="collapse navbar-collapse justify-content-center" id="navbarCentered">
         <ul class="navbar-nav">
-          {% if session.get('user_id') %}
+          <!-- {% if session.get('user_id') %}
             <li class="nav-item"><a class="nav-link" href="{{ url_for('main.feed') }}">Feed</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('main.profile') }}">Profile</a></li>
             {% if session.get('is_admin') %}
@@ -27,6 +29,47 @@
           {% else %}
             <li class="nav-item"><a class="nav-link" href="{{ url_for('main.login') }}">Login</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('main.register') }}">Register</a></li>
+          {% endif %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('main.about') }}">About</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.notifications') }}">
+              <i class="fa fa-bell"></i>
+              {% if notification_count > 0 %}
+                <span class="badge badge-danger">{{ notification_count }}</span>
+              {% endif %}
+            </a>
+          </li> -->
+          {% if session.get('user_id') %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('main.profile') }}">Profile</a>
+            </li>
+            {% if session.get('is_admin') %}
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('main.admin_review') }}">Admin Review</a></li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('main.feed') }}">Feed</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('main.logout') }}">Logout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('main.preferences') }}">Preferences</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('main.notifications') }}">
+                <i class="fa fa-bell"></i>
+                {% if notification_count > 0 %}
+                  <span class="badge badge-danger">{{ notification_count }}</span>
+                {% endif %}
+              </a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('main.login') }}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('main.register') }}">Register</a>
+            </li>
           {% endif %}
           <li class="nav-item"><a class="nav-link" href="{{ url_for('main.about') }}">About</a></li>
         </ul>
