@@ -123,8 +123,7 @@ def feed():
         db.session.commit()
         flash("The campaign you have submitted is under review. Please allow 24 hrs for approval.", "info")
         return redirect(url_for('main.profile'))
-    # Retrieve all posts from the database
-    #posts = Post.query.order_by(Post.timestamp.desc()).all()
+
     # For Get requests, only show posts that are approved
     approved_posts = Post.query.filter_by(status='Approved').order_by(Post.timestamp.desc()).all()
     return render_template('feed.html', posts=approved_posts)
