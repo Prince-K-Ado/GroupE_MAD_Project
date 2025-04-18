@@ -2,7 +2,7 @@ from flask import Flask, session
 from app.config import Config
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
-from flask_mail import Mail
+
 
 
 
@@ -15,7 +15,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 # Bind SQLAlchemy to this app
 db = SQLAlchemy(app)
-mail = Mail(app)
+
 
 # db.init_app(app)
 # Import models to register them with SQLAlchemy

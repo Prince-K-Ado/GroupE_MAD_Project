@@ -1,7 +1,8 @@
 import random
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash, current_app
 from app import db
-from app.models import User, Post, Subscription, Notification, Category
+from app.models import User, Post, Subscription, Notification, Category, Donation, CampaignUpdate
+from decimal import Decimal
 from sqlalchemy import func
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
@@ -93,6 +94,13 @@ def feed():
         media = request.files.get('media')
         content = request.form.get('content')
         category = request.form.get('category') # Category of the post (e.g., "Donations", "Food", etc.)
+        gaol_amount = request.form['goal'] # Goal amount for the post
+        
+        try:
+            goal = Decimal(gaol_amount)
+        except ValueError:
+            flash('Invalid goal amount.', 'Please try again.')
+            return redirect(url_for('main.feed'))
         # Check if media file was uploaded
         if media and media.filename.strip():
             # Add file type, size validations here and store the file as needed.
@@ -108,7 +116,8 @@ def feed():
             content=content, 
             media_filename=filename,
             status='Pending',  # Default status for new posts
-            category=category)  # Store the category of the post)
+            category=category,
+            goal=goal)  # Store the category of the post)
         
         db.session.add(new_post)
         db.session.commit()
@@ -223,56 +232,65 @@ def edit_post(post_id):
 
 # Admin page for reviewing posts
 # This route is only accessible to admin users
+# at the top of routes.py, ensure you have:
+
 @main.route('/admin/review', methods=['GET', 'POST'])
 def admin_review():
-    # Check if user is logged in and is an admin.
+    # --- Security checks ---
     if 'user_id' not in session:
         flash('Please log in to access this page.', 'warning')
         return redirect(url_for('main.login'))
-    
-    user = User.query.get_or_404(session['user_id'])
-    if not user.is_admin:
+    admin = User.query.get_or_404(session['user_id'])
+    if not admin.is_admin:
         flash('You do not have permission to access this page.', 'danger')
         return redirect(url_for('main.feed'))
-    
+
+    # --- Handle form submission ---
     if request.method == 'POST':
-        # Handle post approval/rejection.
         post_id = request.form.get('post_id')
-        action = request.form.get('action')  # Expected values: 'approve' or 'reject'
-        post = Post.query.get_or_404(post_id)
-        
+        action  = request.form.get('action')  # 'approve', 'reject', or 'complete'
+        post    = Post.query.get_or_404(post_id)
+
         if action == 'approve':
             post.status = 'Approved'
-            flash('Post approved!', 'success')
-            
-            # Get the Category object matching the post's category (case-insensitive)
-            cat_obj = Category.query.filter(func.lower(Category.name) == func.lower(post.category)).first()
-            
-            # If a matching Category is found, get subscriptions by category_id
-            if cat_obj:
-                subscriptions = Subscription.query.filter_by(category_id=cat_obj.id).all()
-            else:
-                subscriptions = []
-            
-            for subscription in subscriptions:
-                # Use a default value if post.category is None (shouldn't be, if enforced)
-                category_value = post.category or "General"
-                notification = Notification(
-                    user_id=subscription.user_id,
-                    post_id=post.id,
-                    message=f"A new post in category '{category_value}' has been approved."
-                )
-                db.session.add(notification)
+            flash(f'Post #{post.id} approved.', 'success')
+
         elif action == 'reject':
             post.status = 'Rejected'
-            flash('Post rejected.', 'info')
-        
+            flash(f'Post #{post.id} rejected.', 'info')
+
+        elif action == 'complete':
+            post.status = 'Completed'
+            flash(f'Post #{post.id} marked as completed.', 'primary')
+
+            # Notify every donor of this campaign ---
+            for donation in post.donations:
+                # create a friendly summary
+                amt = float(donation.amount)
+                note = Notification(
+                    user_id=donation.donor_id,
+                    post_id=post.id,
+                    message=(
+                        f"Your donation of ${amt:.2f} "
+                        f"to the “{post.category}” campaign has been successfully completed."
+                    )
+                )
+                db.session.add(note)
+
         db.session.commit()
         return redirect(url_for('main.admin_review'))
+
+    # --- Prepare lists for rendering ---
+    pending_posts  = Post.query.filter_by(status='Pending') .order_by(Post.timestamp.desc()).all()
+    approved_posts = Post.query.filter_by(status='Approved').order_by(Post.timestamp.desc()).all()
+
+    return render_template(
+        'admin_review.html',
+        pending_posts=pending_posts,
+        approved_posts=approved_posts
+    )
+
     
-    # For GET, retrieve all pending posts for admin review.
-    pending_posts = Post.query.filter_by(status='Pending').order_by(Post.timestamp.desc()).all()
-    return render_template('admin_review.html', posts=pending_posts)
 
 @main.route('/notifications')
 def notifications():
@@ -286,7 +304,16 @@ def notifications():
 @main.route('/post/<int:post_id>')
 def view_post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('view_post.html', post=post)
+
+    # Calculate the total donations for the post
+    total_raised = db.session.query(db.func.coalesce(db.func.sum(Donation.amount), 0)).filter_by(post_id=post_id).scalar()
+    donor_count = Donation.query.filter_by(post_id=post_id).count()
+    # Get all donations for the post
+    donations = Donation.query.filter_by(post_id=post_id).all()
+    
+    return render_template('view_post.html', post=post, total_raised=total_raised, donor_count=donor_count, donations=donations)
+
+
 
 @main.route('/notification/read/<int:notif_id>')
 def read_notification(notif_id):
@@ -330,3 +357,89 @@ def preferences():
         current_subs = Subscription.query.filter_by(user_id=user.id).all()
         current_category_ids = [sub.category_id for sub in current_subs]
         return render_template('preferences.html', available_categories=available_categories, current_category_ids=current_category_ids)
+    
+
+@main.route('/donate/<int:post_id>', methods=['GET', 'POST'])
+def donate(post_id):
+    if 'user_id' not in session:
+        flash('Please log in to donate.', 'warning')
+        return redirect(url_for('main.login'))
+    
+    post = Post.query.get_or_404(post_id)
+    if request.method == 'POST':
+        try:
+            amount = request.form.get('amount')
+            # Convert amount to a Decimal for storing in the database.
+            donation_amount = Decimal(amount)
+        except Exception as e:
+            flash('Invalid donation amount.', 'danger')
+            return render_template('donate.html', post=post)
+        
+        message = request.form.get('message')
+        donation = Donation(
+            post_id=post.id,
+            donor_id=session['user_id'],
+            amount=donation_amount,
+            message=message
+        )
+
+        # Update the post's total amount raised
+        note = Notification(
+            user_id=post.user_id,
+            post_id=post.id,
+            message=(
+                f"Your campaign “{post.content[:30]}…” "
+                f"has received a donation of ${donation_amount:.2f}."
+                    )
+        )
+        db.session.add(note)
+        db.session.add(donation)
+        db.session.commit()
+        flash('Thank you for your donation!', 'success')
+        return redirect(url_for('main.view_post', post_id=post.id))
+    
+    return render_template('donate.html', post=post)
+
+@main.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
+def post_update(post_id):
+    if 'user_id' not in session:
+        flash('Please log in to update your campaign.', 'warning')
+        return redirect(url_for('main.login'))
+    
+    post = Post.query.get_or_404(post_id)
+    # Ensure the current user is the campaign owner.
+    if post.user_id != session['user_id']:
+        flash('You are not authorized to update this campaign.', 'danger')
+        return redirect(url_for('main.profile'))
+    
+    if request.method == 'POST':
+        update_text = request.form.get('update_text')
+        media = request.files.get('media')
+        if media and media.filename.strip():
+            filename = secure_filename(media.filename)
+            upload_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+            media.save(upload_path)
+        else:
+            filename = None
+        
+        campaign_update = CampaignUpdate(
+            post_id=post.id,
+            update_text=update_text,
+            media_filename=filename
+        )
+        db.session.add(campaign_update)
+        db.session.commit()
+        flash('Your campaign update has been submitted.', 'success')
+        return redirect(url_for('main.view_post', post_id=post.id))
+    
+    return render_template('post_update.html', post=post)
+
+
+@main.route('/my_donations')
+def my_donations():
+    if 'user_id' not in session:
+        flash('Please log in to see your donations.', 'warning')
+        return redirect(url_for('main.login'))
+    donations = Donation.query.filter_by(donor_id=session['user_id']) \
+                              .order_by(Donation.timestamp.desc()).all()
+    return render_template('my_donations.html', donations=donations)

@@ -12,39 +12,65 @@
   </div>
 </div>
 
-<h3>My Posts</h3>
-{% if posts %}
-  {% for post in posts %}
-    <div class="card mb-3">
-      <div class="card-body">
-        <p class="card-text">{{ post.content }}</p>
-        {% if post.media_filename %}
-          {% set lower = post.media_filename|lower %}
-          {% if lower.endswith('.mp4') or lower.endswith('.webm') or lower.endswith('.ogg') %}
-            <!-- Display video -->
-            <video controls>
-              <source src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          {% else %}
-            <!-- Display image -->
-            <img src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" alt="Post Media" class="img-fluid">
+<div class="form-container mt-4">
+  <h3>My Posts</h3>
+  {% if posts %}
+    {% for post in posts %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <p class="card-text">{{ post.content }}</p>
+          {% if post.media_filename %}
+            {% set lower = post.media_filename|lower %}
+            {% if lower.endswith('.mp4') or lower.endswith('.webm') or lower.endswith('.ogg') %}
+              <!-- Display video -->
+              <video controls>
+                <source src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            {% else %}
+              <!-- Display image -->
+              <img src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" alt="Post Media" class="img-fluid">
+            {% endif %}
           {% endif %}
-        {% endif %}
-        <p><strong>Category:</strong> {{ post.category }}</p>
-        <p><strong>Timestamp:</strong> {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</p>
-        {% if post.status == 'Pending' %}
-          <div class="alert alert-info">
-            The campaign you have submitted is under review by our team. Please allow 24 hrs for approval.
+          <p><strong>Category:</strong> {{ post.category }}</p>
+          <p><strong>Timestamp:</strong> {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+          {% if post.status == 'Pending' %}
+            <div class="alert alert-info">
+              The campaign you have submitted is under review by our team. Please allow 24 hrs for approval.
+            </div>
+          {% endif %}
+          <!-- Optionally add an edit button -->
+          {% if session.get('user_id') == post.user_id %}
+            <a href="{{ url_for('main.edit_post', post_id=post.id) }}" class="btn btn-primary btn-sm">Edit</a>
+          {% endif %}
+          <p class="card-text"><small class="text-muted">Posted on {{ post.timestamp }}</small></p>
+          {# funds vs. goal exactly as above #}
+        {% set total = post.donations | sum(attribute='amount') %}
+        <div class="mb-2">
+          <strong>Raised:</strong> ${{ '{:.2f}'.format(total) }}
+          &nbsp;/&nbsp;
+          <strong>Goal:</strong> ${{ '{:.2f}'.format(post.goal) }}
+        </div>
+        {% set pct = (total / post.goal * 100) if post.goal else 0 %}
+        <div class="progress mb-3">
+          <div class="progress-bar" role="progressbar"
+              style="width: {{ pct }}%;"
+              aria-valuenow="{{ pct }}"
+              aria-valuemin="0" aria-valuemax="100">
+            {{ pct|round(1) }}%
           </div>
-        {% endif %}
-        <!-- Optionally add an edit button -->
-        {% if session.get('user_id') == post.user_id %}
-          <a href="{{ url_for('main.edit_post', post_id=post.id) }}" class="btn btn-primary btn-sm">Edit</a>
-        {% endif %}
-        <p class="card-text"><small class="text-muted">Posted on {{ post.timestamp }}</small></p>
+        </div>
+
+        {# (You don’t put a Donate button here since it’s the owner’s own posts.) #}
+        <a href="{{ url_for('main.edit_post', post_id=post.id) }}" 
+          class="btn btn-primary">Edit</a>
+        <form method="POST" action="{{ url_for('main.delete_post', post_id=post.id) }}"
+              style="display:inline">
+          <button class="btn btn-danger">Delete</button>
+        </form>
+        </div>
       </div>
-    </div>
+</div>
   {% endfor %}
 {% else %}
   <p>No posts available.</p>

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Donate to Campaign{% endblock %}
+{% block content %}
+<div class="form-container" >
+  <h2>Donate to Campaign: {{ post.category }} - {{ post.content[:50] }}...</h2>
+  <form method="POST" action="{{ url_for('main.donate', post_id=post.id) }}">
+    <div class="form-group">
+      <label for="amount">Donation Amount (USD):</label>
+      <input type="number" step="0.01" name="amount" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="message">Message (optional):</label>
+      <textarea name="message" class="form-control" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Donate</button>
+  </form>
+</div>
+{% endblock %}
