@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% block title %}My Donations{% endblock %}
 {% block content %}
+
+  <!-- Flash message block (add this just after block start) -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} mt-2">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
 <div class="form-container">
   <h2>Your Donations</h2>
   {% if donations %}
@@ -10,7 +20,7 @@
           <div>
             <strong>${{ '{:.2f}'.format(d.amount) }}</strong> to 
             <a href="{{ url_for('main.view_post', post_id=d.post_id) }}">
-              {{ d.post.category }} campaign
+              {{ d.post.content }} - {{ d.post.category }} campaign
             </a>
             <br>
             <small>{{ d.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>

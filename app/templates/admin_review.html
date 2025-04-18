@@ -1,79 +1,82 @@
 {% extends "base.html" %}
 {% block title %}Admin Review{% endblock %}
-
 {% block content %}
-<div class="form-container">
-  <h2>Pending Campaigns</h2>
-  {% if pending_posts %}
-    {% for post in pending_posts %}
-      <div class="card mb-3">
-        <div class="card-body">
-          <p><strong>#{{ post.id }}</strong> by {{ post.author.email }}</p>
-          <p>{{ post.content }}</p>
-          <form method="POST" action="{{ url_for('main.admin_review') }}">
-            <input type="hidden" name="post_id" value="{{ post.id }}">
-            {% if post.media_filename %}
-            {% set lower = post.media_filename|lower %}
-              {% if lower.endswith('.mp4') or lower.endswith('.webm') or lower.endswith('.ogg') %}
-                <!-- Display video -->
-                <video controls>
-                  <source src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
-              {% else %}
-                <!-- Display image -->
-                <img src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" alt="Post Media" class="img-fluid">
-              {% endif %}
-            {% endif %}
-            <div class="form-group">
-              <button name="action" value="approve" class="btn btn-success btn-sm">Approve</button>
-              <button name="action" value="reject"  class="btn btn-danger btn-sm">Reject</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    {% endfor %}
-  {% else %}
-    <p>No pending campaigns.</p>
-  {% endif %}
 
-  <hr>
+  <!-- Flash message block (add this just after block start) -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} mt-2">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
 
-  <h2>Approved Campaigns</h2>
-  {% if approved_posts %}
-    {% for post in approved_posts %}
-      <div class="card mb-3">
-        <div class="card-body">
-          <p><strong>#{{ post.id }}</strong> by {{ post.author.email }}</p>
+  <div class="form-container">
+    <h2>Pending Campaigns</h2>
+    {% if pending_posts %}
+      {% for post in pending_posts %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <p><strong>#{{ post.id }}</strong> by {{ post.author.email }}</p>
             <p>{{ post.content }}</p>
-          <form method="POST" action="{{ url_for('main.admin_review') }}">
-            <input type="hidden" name="post_id" value="{{ post.id }}">
-            {% if post.media_filename %}
-            {% set lower = post.media_filename|lower %}
-              {% if lower.endswith('.mp4') or lower.endswith('.webm') or lower.endswith('.ogg') %}
-                <!-- Display video -->
-                <video controls>
-                  <source src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
-              {% else %}
-                <!-- Display image -->
-                <img src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" alt="Post Media" class="img-fluid">
+            <form method="POST" action="{{ url_for('main.admin_review') }}">
+              <input type="hidden" name="post_id" value="{{ post.id }}">
+              {% if post.media_filename %}
+              {% set lower = post.media_filename|lower %}
+                {% if lower.endswith('.mp4') or lower.endswith('.webm') or lower.endswith('.ogg') %}
+                  <video controls>
+                    <source src="{{ url_for('static', filename='uploads/' ~ post.media_filename) }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                {% else %}
+                  <img src="{{ url_for('static', filename='uploads/' ~ post.media_filename) }}" alt="Post Media" class="img-fluid">
+                {% endif %}
               {% endif %}
-            {% endif %}
-            <div class="form-group">
-              <button name="action" value="complete" class="btn btn-primary btn-sm">
-                Mark as Completed
-              </button>
-            </div>
-          </form>
+              <div class="form-group">
+                <button name="action" value="approve" class="btn btn-success btn-sm">Approve</button>
+                <button name="action" value="reject"  class="btn btn-danger btn-sm">Reject</button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
-    {% endfor %}
-  {% else %}
-    <p>No approved campaigns awaiting completion.</p>
-  {% endif %}
-</div>
+      {% endfor %}
+    {% else %}
+      <p>No pending campaigns.</p>
+    {% endif %}
+
+    <hr>
+
+    <h2>Approved Campaigns</h2>
+    {% if approved_posts %}
+      {% for post in approved_posts %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <p><strong>#{{ post.id }}</strong> by {{ post.author.email }}</p>
+            <p>{{ post.content }}</p>
+            <form method="POST" action="{{ url_for('main.admin_review') }}">
+              <input type="hidden" name="post_id" value="{{ post.id }}">
+              {% if post.media_filename %}
+              {% set lower = post.media_filename|lower %}
+                {% if lower.endswith('.mp4') or lower.endswith('.webm') or lower.endswith('.ogg') %}
+                  <video controls>
+                    <source src="{{ url_for('static', filename='uploads/' ~ post.media_filename) }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                {% else %}
+                  <img src="{{ url_for('static', filename='uploads/' ~ post.media_filename) }}" alt="Post Media" class="img-fluid">
+                {% endif %}
+              {% endif %}
+              <div class="form-group">
+                <button name="action" value="complete" class="btn btn-primary btn-sm">
+                  Mark as Completed
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No approved campaigns awaiting completion.</p>
+    {% endif %}
+  </div>
 {% endblock %}
-
-

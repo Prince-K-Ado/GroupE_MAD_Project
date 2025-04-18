@@ -94,7 +94,7 @@ def feed():
         media = request.files.get('media')
         content = request.form.get('content')
         category = request.form.get('category') # Category of the post (e.g., "Donations", "Food", etc.)
-        gaol_amount = request.form['goal'] # Goal amount for the post
+        gaol_amount = request.form.get('goal_amount', default= 0) # Goal amount for the post
         
         try:
             goal = Decimal(gaol_amount)
@@ -253,6 +253,17 @@ def admin_review():
 
         if action == 'approve':
             post.status = 'Approved'
+            # Notify the user that their post has been approved
+            category_obj = Category.query.filter_by(name=post.category).first()
+            if category_obj: 
+                subscriptions = Subscription.query.filter_by(category_id=category_obj.id).all()
+                for sub in subscriptions:
+                    note = Notification(
+                        user_id=sub.user_id,
+                        post_id=post.id,
+                        message=f"A new post in category '{post.category}' has been approved."
+                        )
+                    db.session.add(note)
             flash(f'Post #{post.id} approved.', 'success')
 
         elif action == 'reject':
@@ -366,6 +377,12 @@ def donate(post_id):
         return redirect(url_for('main.login'))
     
     post = Post.query.get_or_404(post_id)
+
+    # Ensure the user is not donating to their own campaign
+    if post.user_id == session['user_id']:
+        flash('You cannot donate to your own campaign.', 'danger')
+        return redirect(url_for('main.feed'))
+
     if request.method == 'POST':
         try:
             amount = request.form.get('amount')

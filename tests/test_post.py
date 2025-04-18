@@ -73,6 +73,7 @@ def test_post_submission_pending(client):
     assert b'This is a test campaign post' in profile_response.data
     assert b'General Fundraising' in profile_response.data
     assert b'under review' in profile_response.data
+    
 
 
 def test_feed_shows_only_approved(client):
