@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Post Update{% endblock %}
+{% block content %}
+<div class="container">
+  <h2>Update Campaign: {{ post.category }} - {{ post.content[:50] }}...</h2>
+  <form method="POST" action="{{ url_for('main.post_update', post_id=post.id) }}" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="update_text">Update Details:</label>
+      <textarea name="update_text" class="form-control" rows="5" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="media">Upload Media (optional):</label>
+      <input type="file" name="media" class="form-control-file">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Update</button>
+  </form>
+</div>
+{% endblock %}

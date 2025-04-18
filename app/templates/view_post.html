@@ -1,11 +1,89 @@
 {% extends "base.html" %}
-{% block title %}View Post{% endblock %}
+
+{# Only one title block #}
+{% block title %}
+  View Campaign
+{% endblock %}
+
+{# Only one content block #}
 {% block content %}
-<h2>{{ post.category }} Campaign</h2>
-<p>{{ post.content }}</p>
-{% if post.media_filename %}
-  <img src="{{ url_for('static', filename='uploads/' ~ post.media_filename) }}" alt="Post Media" class="img-fluid">
-{% endif %}
-<p><strong>Posted on:</strong> {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</p>
-<p><strong>Author:</strong> {{ post.author.email }}</p>
+  <div class="form-container">
+    <h2>{{ post.category }} Campaign</h2>
+    <p>{{ post.content }}</p>
+
+      <!-- Donation summary -->
+  <div class="my-3">
+    <strong>Raised:</strong> ${{ '{:.2f}'.format(total_raised) }} 
+    &nbsp;|&nbsp; 
+    <strong>Donors:</strong> {{ donor_count }}
+  </div>
+
+  <!-- Optional Bootstrap progress bar (if you have a goal field) -->
+  <div class="progress mb-3">
+    {% set percent = (total_raised / post.goal * 100) if post.goal else 0 %}
+    <div class="progress-bar" role="progressbar" 
+         style="width: {{ percent }}%;" 
+         aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100">
+      {{ percent|round(1) }}%
+    </div>
+  </div>
+
+    {% if post.media_filename %}
+      {% set lower = post.media_filename|lower %}
+        {% if post.media_filename %}
+        {% set lower = post.media_filename|lower %}
+          {% if lower.endswith('.mp4') or lower.endswith('.webm') or lower.endswith('.ogg') %}
+              <!-- Display video -->
+              <video controls>
+                  <source src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+          {% else %}
+              <!-- Display media -->
+              <img src="{{ url_for('static', filename='uploads/' ~post.media_filename) }}" class="img-fluid" alt="Media">
+          {% endif %}
+      {% endif %}
+    {% endif %}
+
+    <p><strong>Posted by:</strong> {{ post.author.email }}</p>
+    <p><strong>Posted on:</strong> {{ post.timestamp.strftime('%Y-%m-%d %H:%M') }}</p>
+
+    <hr>
+
+    <h3>Campaign Updates</h3>
+    {% if post.updates %}
+      {% for update in post.updates %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <p>{{ update.update_text }}</p>
+            {% if update.media_filename %}
+              <img src="{{ url_for('static', filename='uploads/' ~ update.media_filename) }}"
+                   class="img-fluid"
+                   alt="Update media">
+            {% endif %}
+            <small class="text-muted">
+              Updated on: {{ update.timestamp.strftime('%Y-%m-%d %H:%M') }}
+            </small>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No updates have been posted yet.</p>
+    {% endif %}
+
+    {% if session.get('user_id') == post.user_id %}
+      <a href="{{ url_for('main.post_update', post_id=post.id) }}"
+         class="btn btn-secondary">
+        Add an Update
+      </a>
+    {% endif %}
+
+    {# Donate button #}
+    {%if session.get('user_id') != post.user_id %}
+      <a href="{{ url_for('main.donate', post_id=post.id) }}"
+        class="btn btn-success mt-3">
+        <i class="fas fa-donate"></i> Donate
+      </a>
+    {% endif %}
+  </div>
 {% endblock %}
