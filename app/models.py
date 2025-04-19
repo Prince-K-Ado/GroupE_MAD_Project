@@ -84,17 +84,6 @@ class Notification(db.Model):
     def __repr__(self):
         return f"<Notification {self.id} for user {self.user_id}>"
 
-class AuditLog(db.Model):
-    __tablename__ = 'audit_log'
-    id = db.Column(db.Integer, primary_key=True)
-    admin_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
-    action = db.Column(db.String(20), nullable=False)  # e.g., "Approved", "Rejected"
-    message = db.Column(db.String(255))  # Optional custom message
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-    
-    def __repr__(self):
-        return f"<AuditLog {self.id} for post {self.post_id}>"
 
 class Donation(db.Model):
     __tablename__ = 'donation'
@@ -112,14 +101,3 @@ class Donation(db.Model):
     def __repr__(self):
         return f"<Donation {self.id} by User {self.donor_id} for Post {self.post_id}>"
     
-
-class CampaignUpdate(db.Model):
-    __tablename__ = 'campaign_update'
-    id = db.Column(db.Integer, primary_key=True)
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
-    update_text = db.Column(db.Text, nullable=False)
-    media_filename = db.Column(db.String(255), nullable=True)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-
-    def __repr__(self):
-        return f"<CampaignUpdate {self.id} for Post {self.post_id}>"

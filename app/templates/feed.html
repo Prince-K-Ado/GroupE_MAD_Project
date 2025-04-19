@@ -12,6 +12,18 @@
             </p>
                 <form method="POST" action="{{ url_for('main.feed') }}" enctype="multipart/form-data">
                     <div class="form-group">
+                        <div class="card-body">
+                            <h5 class="card-title">Posting Instructions</h5>
+                            <p><strong>Welcome to the Mutual Aid Platform!</strong></p>
+                            <ul>
+                              <li>Briefly describe your need or cause in the post content box.</li>
+                              <li>Select the most relevant category (e.g., Disaster Relief, Health, Food, Refugee Assistance, etc.).</li>
+                              <li>Optionally upload a clear image or short video to help others understand your campaign.</li>
+                              <li>Ensure your profile's contact information is updated for any assistance follow-up.</li>
+                              <li>Please avoid sharing sensitive personal information publicly.</li>
+                            </ul>
+                            <p>We’re here to support each other. Stay safe and take care! 🌱</p>
+                        </div>
                         <label for="content">Post Content:</label>
                         <textarea name="content" id="content" class="form-control" rows="3" placeholder="Enter your post details here"></textarea>
                     </div>
