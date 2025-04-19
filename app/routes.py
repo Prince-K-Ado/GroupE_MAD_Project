@@ -1,7 +1,7 @@
 import random
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash, current_app
 from app import db
-from app.models import User, Post, Subscription, Notification, Category, Donation, CampaignUpdate
+from app.models import User, Post, Subscription, Notification, Category, Donation
 from decimal import Decimal
 from sqlalchemy import func
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -94,7 +94,8 @@ def feed():
         media = request.files.get('media')
         content = request.form.get('content')
         category = request.form.get('category') # Category of the post (e.g., "Donations", "Food", etc.)
-        gaol_amount = request.form.get('goal_amount', default= 0) # Goal amount for the post
+        goal_input = request.form.get('goal') # Goal amount for the post
+        gaol_amount = Decimal(goal_input) if goal_input else Decimal('0') # Goal amount for the post
         
         try:
             goal = Decimal(gaol_amount)
@@ -324,7 +325,6 @@ def view_post(post_id):
     return render_template('view_post.html', post=post, total_raised=total_raised, donor_count=donor_count, donations=donations)
 
 
-
 @main.route('/notification/read/<int:notif_id>')
 def read_notification(notif_id):
     if 'user_id' not in session:
@@ -416,41 +416,6 @@ def donate(post_id):
     
     return render_template('donate.html', post=post)
 
-@main.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
-def post_update(post_id):
-    if 'user_id' not in session:
-        flash('Please log in to update your campaign.', 'warning')
-        return redirect(url_for('main.login'))
-    
-    post = Post.query.get_or_404(post_id)
-    # Ensure the current user is the campaign owner.
-    if post.user_id != session['user_id']:
-        flash('You are not authorized to update this campaign.', 'danger')
-        return redirect(url_for('main.profile'))
-    
-    if request.method == 'POST':
-        update_text = request.form.get('update_text')
-        media = request.files.get('media')
-        if media and media.filename.strip():
-            filename = secure_filename(media.filename)
-            upload_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-            media.save(upload_path)
-        else:
-            filename = None
-        
-        campaign_update = CampaignUpdate(
-            post_id=post.id,
-            update_text=update_text,
-            media_filename=filename
-        )
-        db.session.add(campaign_update)
-        db.session.commit()
-        flash('Your campaign update has been submitted.', 'success')
-        return redirect(url_for('main.view_post', post_id=post.id))
-    
-    return render_template('post_update.html', post=post)
-
-
 @main.route('/my_donations')
 def my_donations():
     if 'user_id' not in session:
@@ -459,3 +424,41 @@ def my_donations():
     donations = Donation.query.filter_by(donor_id=session['user_id']) \
                               .order_by(Donation.timestamp.desc()).all()
     return render_template('my_donations.html', donations=donations)
+
+
+# @main.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
+# def post_update(post_id):
+#     if 'user_id' not in session:
+#         flash('Please log in to update your campaign.', 'warning')
+#         return redirect(url_for('main.login'))
+    
+#     post = Post.query.get_or_404(post_id)
+#     # Ensure the current user is the campaign owner.
+#     if post.user_id != session['user_id']:
+#         flash('You are not authorized to update this campaign.', 'danger')
+#         return redirect(url_for('main.profile'))
+    
+#     if request.method == 'POST':
+#         update_text = request.form.get('update_text')
+#         media = request.files.get('media')
+#         if media and media.filename.strip():
+#             filename = secure_filename(media.filename)
+#             upload_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+#             media.save(upload_path)
+#         else:
+#             filename = None
+        
+#         campaign_update = CampaignUpdate(
+#             post_id=post.id,
+#             update_text=update_text,
+#             media_filename=filename
+#         )
+#         db.session.add(campaign_update)
+#         db.session.commit()
+#         flash('Your campaign update has been submitted.', 'success')
+#         return redirect(url_for('main.view_post', post_id=post.id))
+    
+#     return render_template('post_update.html', post=post)
+
+
+
