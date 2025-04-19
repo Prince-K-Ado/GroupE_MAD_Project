@@ -38,105 +38,124 @@ This Mutual Aid Crowdfunding Database will be developed over eight weeks, ensuri
 
 ---
 
-## Instructions on how to run our Mini-Gofundme App
+# 📘 Instructions: How to Run the Mini-GoFundMe App
 
-## Prerequisites
+This project is a simplified GoFundMe-style web application where users can create campaigns, upload media, receive donations, and receive updates via notifications. Admins can manage and review posts, and users can track progress toward their fundraising goals.
 
-Ensure you have Python installed (preferably Python 3.x).
-Clone the repository to your local machine.
-Set up and activate your virtual environment.
+---
 
-## Setting Up the Virtual Environment
+## ✅ Prerequisites
 
-### Windows
+- Python 3.9 or newer installed
+- Git (for cloning the repository)
 
-Open a terminal (Command Prompt or PowerShell) in the project root.
+---
 
-Create a virtual environment (if not already created):
+## 🔧 1. Clone the Repository
+
+```bash
+git clone https://github.com/Prince-K-Ado/GroupE_MAD_Project.git
+cd GroupE_MAD_Project
+```
+
+---
+
+## 🔨 2. Set Up the Virtual Environment
+
+### On Windows
 
 ```bash
 python -m venv venv
-```
-
-Activate the virtual environment:
-
-```bash
 venv\Scripts\activate
 ```
 
-### macOS/Linux
-
-Open a terminal in the project root.
-
-Create a virtual environment (if not already created):
+### On macOS/Linux
 
 ```bash
 python3 -m venv venv
-```
-
-Activate the virtual environment:
-
-```bash
 source venv/bin/activate
 ```
 
-## Install the Application dependencies from the requirements.txt file
+---
+
+## 📦 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Running the Application
+---
 
-### Set Environment Variables
+## ⚙️ 4. Set Environment Variables
 
-#### Windows
-
-Open your terminal in the project root and run:
+### On Windows
 
 ```bash
 set FLASK_APP=app\__init__.py
 set FLASK_ENV=development
 ```
 
-#### macOS/Linux
-
-In your terminal, run:
+### On macOS/Linux
 
 ```bash
 export FLASK_APP=app/__init__.py
 export FLASK_ENV=development
 ```
 
+---
 
-## Running the Tests
+## 🧱 5. Initialize the Database
 
-### Ensure the Virtual Environment is Activated (see instructions above)
-
-### Run Tests Using Pytest
-
-From the project root, run:
+### Create or Reset the Database
 
 ```bash
-pytest
+python create_db.py
 ```
 
-This command will execute all tests located in the `tests/` directory.
-
-These instructions should guide you through setting up your environment, running your Flask application, and executing your tests. If you encounter any issues, verify that you're in the correct project directory and that your virtual environment is activated.
-
-#### Reset and Rebuild the tables in the database by running the following or add a new user to the register form from the app
+### Seed Initial Categories (Optional but recommended to populate the subscription categories)
 
 ```bash
-python .\create_db.py
+python seed_categories.py
 ```
 
-### Run the Flask App
+### Create an Admin User
 
-In the terminal (with your virtual environment activated and environment variables set), run:
+```bash
+python create_admin.py
+```
+
+This creates a user with admin rights that can access the admin dashboard to approve or reject posts.
+
+---
+
+## 🚀 6. Run the Application
+
+Start the development server:
 
 ```bash
 flask run
 ```
 
-Your application will be available at [http://127.0.0.1:5000](http://127.0.0.1:5000).
+Then open your browser and visit:
+
+[http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+---
+
+## 🧪 7. Run the Tests
+
+Make sure your virtual environment is activated.
+
+### Basic Test Run
+```bash
+pytest
+```
+
+---
+
+## 📘 Extra Notes
+
+- If you're seeing errors related to database schema, you may need to delete `MiniGoFundMe.db` and re-run `create_db.py`.
+- Make sure environment variables are correctly set before running `flask run`.
+
+For questions, feedback, or contributions, please refer to the project's README or open an issue.
