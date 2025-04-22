@@ -161,7 +161,7 @@ pytest
 For questions, feedback, or contributions, please refer to the project's README or open an issue.
 
 ---
-### 3 most important things learned
+###  📖 Three most important things learned
 
 - Clean Architecture and Modularity was essential to make debugging and testing easier when needed.
 - Though the code might works in some instance, testing it provides confidence for its functionality.
