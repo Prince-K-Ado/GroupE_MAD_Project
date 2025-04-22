@@ -159,3 +159,11 @@ pytest
 - Make sure environment variables are correctly set before running `flask run`.
 
 For questions, feedback, or contributions, please refer to the project's README or open an issue.
+
+---
+### 3 most important things learned
+
+- Clean Architecture and Modularity was essential to make debugging and testing easier when needed.
+- Though the code might works in some instance, testing it provides confidence for its functionality.
+- The use of Git and GitHub repo allows for versioning and reviews on collaborator contribution and code testing.
+
