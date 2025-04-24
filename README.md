@@ -36,6 +36,9 @@ This Mutual Aid Crowdfunding Database will be developed over eight weeks, ensuri
 
 ![Burn down chart](https://github.com/Prince-K-Ado/GroupE_MAD_Project/blob/main/chartweek2.png)
 
+Burn down chart for Milestone 2 <img width="831" alt="Screenshot 2025-04-23 at 7 58 43 PM" src="https://github.com/user-attachments/assets/aa7d6d6b-b816-41f7-a471-65e4619b5247" />
+
+
 ---
 
 # 📘 Instructions: How to Run the Mini-GoFundMe App
