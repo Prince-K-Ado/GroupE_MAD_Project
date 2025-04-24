@@ -112,19 +112,19 @@ export FLASK_ENV=development
 ### Create or Reset the Database
 
 ```bash
-python create_db.py
+python .\Datatabase_Checks\create_db.py  
 ```
 
 ### Seed Initial Categories (Optional but recommended to populate the subscription categories)
 
 ```bash
-python seed_categories.py
+python .\Datatabase_Checks\seed_categories.py
 ```
 
 ### Create an Admin User
 
 ```bash
-python create_admin.py
+python .\Datatabase_Checks\create_admin.py
 ```
 
 This creates a user with admin rights that can access the admin dashboard to approve or reject posts.
